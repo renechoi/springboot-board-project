@@ -1,0 +1,32 @@
+root : root / mysql1234
+
+SHOW DATABASES;
+
+CREATE DATABASE spring;
+
+CREATE USER 'rene'@'localhost' IDENTIFIED BY 'itiswhatitis';
+
+SELECT `user`
+FROM `mysql`.user;
+SHOW GRANTS FOR 'rene'@'localhost';
+
+GRANT ALL ON `spring`.* TO 'rene'@'localhost' WITH GRANT OPTION;
+
+FLUSH PRIVILEGES;
+
+INSERT article VALUE (1, '1', '2022-11-11', '1', '2022-11-11', '2022-11-11', '2022-11-11', '1')
+
+DELETE
+FROM article
+WHERE id = 1;
+
+
+
+CREATE TABLE Test
+(
+    ID          INT,
+    Name        VARCHAR(30),
+    ReserveDate DATE,
+    RoomNum     INT
+
+);
