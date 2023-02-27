@@ -16,12 +16,12 @@
         <th>email</th>
     </tr>
 
-    <c:forEach items="${list}" var="emaillist">
+    <c:forEach items="${emails}" var="emails">
         <tr>
-            <td>${emaillist.no}</td>
-            <td>${emaillist.firstName}</td>
-            <td>${emaillist.lastName}</td>
-            <td>${emaillist.email}</td>
+            <td>${emails.no}</td>
+            <td>${emails.firstName}</td>
+            <td>${emails.lastName}</td>
+            <td>${emails.email}</td>
         </tr>
     </c:forEach>
 

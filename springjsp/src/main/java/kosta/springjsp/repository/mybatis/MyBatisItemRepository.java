@@ -13,12 +13,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyBatisItemRepository implements ItemRepository {
 
-    @Autowired
     private final ItemMapper itemMapper;
-
 
     @Override
     public Email save(Email email) {
+        itemMapper.save(email);
         return email;
     }
 

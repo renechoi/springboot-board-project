@@ -3,8 +3,9 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kosta.springjsp.repository.mybatis.ItemMapper">
 
-    <insert id="save" useGeneratedKeys="true" keyProperty="id">
-        insert into emaillist values (seq_emaillist_no.nextval, 'a', 'a', 'a')
+    <insert id="save">
+        INSERT INTO emaillist
+        VALUES (seq_emaillist_no.nextval, #{lastName}, #{firstName}, #{email})
     </insert>
 
 

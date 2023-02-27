@@ -6,10 +6,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -30,6 +29,23 @@ public class EmailController {
         model.addAttribute("emails", emails);
         return "email-list";
 
+    }
+
+    @GetMapping(value = "/form")
+    public String form() {
+        return "email-form";
+    }
+
+    @PostMapping
+    public String emails(@ModelAttribute Email email, RedirectAttributes redirectAttributes){
+        System.out.println("email = " + email);
+
+        Email savedEmail = itemService.save(email);
+
+//        redirectAttributes.addAttribute("itemId", savedEmail.getEmail());
+//        redirectAttributes.addAttribute("status", true);
+
+        return "redirect:emails";
     }
 
 

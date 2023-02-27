@@ -2,8 +2,10 @@ package kosta.springjsp.domain.email;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 @Getter @Setter
+@ToString
 public class Email {
 
     private int no;
