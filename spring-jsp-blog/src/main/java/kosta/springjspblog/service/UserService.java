@@ -14,20 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
 
-	@Autowired
-	private UserRepository userRepository;
-	
-	@Autowired
-	private BlogRepository blogRepository;
-	
-	@Autowired
-	private CategoryRepository categoryRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	/*회원가입: 회원정보, 블로그기본정보, 카테고리기본정보가 저장되어야함*/
-	@Transactional
-	public void join(User user) {
-		//회원정보 저장
-		userRepository.save(user);// 키값 필요
+    @Autowired
+    private BlogRepository blogRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
+
+    /*회원가입: 회원정보, 블로그기본정보, 카테고리기본정보가 저장되어야함*/
+    @Transactional
+    public void join(User user) {
+        //회원정보 저장
+        userRepository.save(user);// 키값 필요
 //		int userNo = savedUser.getUserNo();
 
 //		System.out.println("userNo = " + userNo);
@@ -46,24 +46,19 @@ public class UserService {
 //		category.setUserNo(userNo);
 //
 //		categoryRepository.save(category);
-	}
+    }
 
 
-//	/*아이디체크 : 회원가입시 사용중인 아이디인지 검사*/
-//	public boolean idCheck(String id) {
-//		boolean isExist;
-//		UserVo userVo = userDao.selectUserVo(id);
-//		if(userVo == null) {
-//			isExist = false; //존재하니-->아니요: 사용할 수 있음
-//		} else {
-//			isExist = true;  //존재하니-->예: 사용할 수 없음
-//		}
-//		return isExist;
-//	}
+    /*아이디체크 : 회원가입시 사용중인 아이디인지 검사*/
+    public boolean idCheck(String id) {
+        boolean isExist;
+        User user = userRepository.findById(id);
+        isExist = user != null; // 존재하는 경우 true 값 리턴
+        return isExist;
+    }
 
-	/*로그인*/
-	public User login(User user) {
-		//회원정보 가져오기
-		return userRepository.findByObject(user);
-	}
+    /*로그인*/
+    public User login(User user) {
+        return userRepository.findByObject(user);
+    }
 }

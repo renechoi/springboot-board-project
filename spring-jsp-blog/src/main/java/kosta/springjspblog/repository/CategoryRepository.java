@@ -24,7 +24,7 @@ public class CategoryRepository implements JBlogRepository<Category> {
     }
 
     @Override
-    public Category findById(int id) {
+    public Category findById(String id) {
         return null;
     }
 

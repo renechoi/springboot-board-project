@@ -25,9 +25,8 @@ public class UserRepository implements JBlogRepository<User> {
     }
 
     @Override
-    public User findById(int id) {
-        mybatisMapper.findById(id);
-        return null;
+    public User findById(String id) {
+        return mybatisMapper.findById(id);
     }
 
     @Override

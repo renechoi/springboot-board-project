@@ -46,15 +46,20 @@ public class UserController {
 		}
 		return "redirect:/user/login?result=fail";
 	}
+
+	/*로그아웃*/
+	@GetMapping(value = "/logout")
+	public String logout(HttpSession session) {
+		session.removeAttribute("authUser");
+		session.invalidate();
+		return "redirect:/";
+	}
+
+	@ResponseBody
+	@PostMapping(value = "/idcheck")
+	public boolean cateList(String id) {
+		return userService.idCheck(id);
+	}
+
 }
-//
-//	/*로그아웃*/
-//	@RequestMapping(value="/logout", method=RequestMethod.GET)
-//	public String logout(HttpSession session) {
-//		session.removeAttribute("authUser");
-//		session.invalidate();
-//		return "redirect:/";
-//	}
-
-
 

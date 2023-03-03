@@ -50,7 +50,7 @@
 $("#btn-checkid").on("click", function(){
  	var id = $("[name=id]").val();
  	$.ajax({
-		url : "${pageContext.request.contextPath }/api/user/idcheck",		
+		url : "${pageContext.request.contextPath }/user/idcheck",
 		type : "post",
 		data : {id: id},
 		dataType : "json",
@@ -58,7 +58,7 @@ $("#btn-checkid").on("click", function(){
 			if(isExist == false){
 				$("#checkid-msg").text("사용할 수 있는 아이디 입니다.")
 			}else {
-				$("#checkid-msg").text("다른 아이디로 가입해 주세요.")
+				$("#checkid-msg").text("이미 사용 중인 아이디 입니다.")
 			}
 		},
 		error : function(XHR, status, error) {

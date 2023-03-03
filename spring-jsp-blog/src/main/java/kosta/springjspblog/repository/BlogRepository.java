@@ -24,7 +24,7 @@ public class BlogRepository implements JBlogRepository<Blog>{
     }
 
     @Override
-    public Blog findById(int id) {
+    public Blog findById(String id) {
         return null;
     }
 
