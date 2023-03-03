@@ -1,6 +1,7 @@
 package kosta.springjspblog.repository;
 
-import kosta.springjspblog.repository.mybatis.MybatisMapper;
+import kosta.springjspblog.repository.mybatis.BlogMapper;
+import kosta.springjspblog.repository.mybatis.UserMapper;
 import kosta.springjspblog.domain.Blog;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,11 +12,12 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BlogRepository implements JBlogRepository<Blog>{
 
-    private final MybatisMapper<Blog> mybatisMapper;
+    private final BlogMapper blogMapper;
 
     @Override
     public Blog save(Blog blog) {
-        return null;
+        blogMapper.save(blog);
+        return blog;
     }
 
     @Override

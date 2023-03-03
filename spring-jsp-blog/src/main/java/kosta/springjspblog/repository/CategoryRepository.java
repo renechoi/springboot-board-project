@@ -1,6 +1,7 @@
 package kosta.springjspblog.repository;
 
-import kosta.springjspblog.repository.mybatis.MybatisMapper;
+import kosta.springjspblog.repository.mybatis.CategoryMapper;
+import kosta.springjspblog.repository.mybatis.UserMapper;
 import kosta.springjspblog.domain.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,7 +12,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CategoryRepository implements JBlogRepository<Category> {
 
-    private final MybatisMapper<Category> mybatisMapper;
+    private final CategoryMapper categoryMapper;
 
     @Override
     public Category save(Category category) {

@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
-
 @Controller
 @RequestMapping(value = "/user")
 @RequiredArgsConstructor
@@ -16,17 +15,15 @@ public class UserController {
 
 	private final UserService userService;
 
-	/*회원가입폼 출력*/
 	@GetMapping(value = "/join")
 	public String joinForm() {
 		return "user/joinForm";
 	}
 
-	/*회원가입*/
 	@PostMapping(value = "/join")
-	public String join(@ModelAttribute User user) {
+	public String join(@ModelAttribute User user, HttpSession session) {
 		// userName, id, password
-		userService.join(user);
+		userService.join(user, session);
 		return "user/joinSuccess";
 	}
 

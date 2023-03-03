@@ -1,38 +1,40 @@
-//package kosta.springjspblog.controller;
+package kosta.springjspblog.controller;
+
+import kosta.springjspblog.domain.Blog;
+import kosta.springjspblog.service.BlogService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpSession;
+
+
+@Controller
+@RequiredArgsConstructor
+@RequestMapping("/blog")
+public class BlogController {
+
+	private final BlogService blogService;
+
+//	private final CateService cateService;
 //
-//import java.util.List;
-//
-//import javax.servlet.http.HttpSession;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.ModelAttribute;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.RequestParam;
-//
-//import com.javaex.service.BlogService;
-//import com.javaex.service.CateService;
-//import com.javaex.service.PostService;
-//import com.javaex.vo.BlogVo;
-//import com.javaex.vo.CateVo;
-//import com.javaex.vo.PostVo;
-//import com.javaex.vo.UserVo;
-//
-//@Controller
-//public class BlogController {
-//
-//	@Autowired
-//	private BlogService blogService;
-//
-//	@Autowired
-//	private CateService cateService;
-//
-//	@Autowired
-//	private PostService postService;
-//
+//	private final PostService postService;
+
+	@GetMapping(value = "/{id}/create")
+	public String createForm() {
+		System.out.println("BlogController.createForm");
+		return "blog/blog-createForm";
+	}
+
+	@PostMapping("/create")
+	public Blog create(@ModelAttribute Blog blog, HttpSession session){
+		blogService.create(blog);
+		return blog;
+	}
+
 //	/*개인블로그 메인페이지*/
 //	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 //	public String blogMain(@PathVariable("id") String id,
@@ -75,7 +77,16 @@
 //		model.addAttribute("newLine", "\r\n"); //줄바꾸기용
 //		return "blog/blog-main";
 //	}
-//
+
+
+
+
+
+
+
+
+
+
 //
 //	/*개인블로그 기본설정페이지 출력*/
 //	@RequestMapping(value="/{id}/admin/basic", method=RequestMethod.GET)
@@ -196,6 +207,6 @@
 //
 //		return "redirect:/" + id;
 //	}
-//
-//
-//}
+
+
+}

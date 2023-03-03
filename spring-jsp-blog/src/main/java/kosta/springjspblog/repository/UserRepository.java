@@ -1,6 +1,6 @@
 package kosta.springjspblog.repository;
 
-import kosta.springjspblog.repository.mybatis.MybatisMapper;
+import kosta.springjspblog.repository.mybatis.UserMapper;
 import kosta.springjspblog.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -11,11 +11,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UserRepository implements JBlogRepository<User> {
 
-    private final MybatisMapper<User> mybatisMapper;
-
+    private final UserMapper userMapper;
 
     public User save(User user) {
-        mybatisMapper.save(user);
+        userMapper.save(user);
         return user;
     }
 
@@ -26,14 +25,13 @@ public class UserRepository implements JBlogRepository<User> {
 
     @Override
     public User findById(String id) {
-        return mybatisMapper.findById(id);
+        return userMapper.findById(id);
     }
 
     @Override
     public User findByObject(User user) {
-        return mybatisMapper.findByObject(user);
+        return userMapper.findByObject(user);
     }
-
 
     @Override
     public User update() {
@@ -44,4 +42,6 @@ public class UserRepository implements JBlogRepository<User> {
     public User delete() {
         return null;
     }
+
+
 }

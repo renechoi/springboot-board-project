@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kosta.springjspblog.repository.mybatis.BlogMapper">
+
+    <insert id="save" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
+
+        insert into kostablog.blog(id, blogTitle, logoFile)
+        values(
+        #{id},
+        #{blogTitle},
+        #{logoFile})
+
+        <selectKey resultType="String" keyProperty="id" keyColumn="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+    </insert>
+
+
+    <select id="findById" parameterType="string" resultType="User">
+        SELECT userNo, id, userName
+        FROM kostablog.users
+        WHERE userNo = #{id}
+    </select>
+
+
+
+
+</mapper>
+

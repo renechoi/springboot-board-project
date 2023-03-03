@@ -1,23 +1,25 @@
-//package kosta.springjspblog.Service;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Service;
-//import org.springframework.web.multipart.MultipartFile;
-//
-//import com.javaex.dao.BlogDao;
-//import com.javaex.util.FileUtil;
-//import com.javaex.vo.BlogVo;
-//import com.javaex.vo.FileVo;
-//
-//@Service
-//public class BlogService {
-//
-//	@Autowired
-//	private BlogDao blogDao;
-//
+package kosta.springjspblog.service;
+
+import kosta.springjspblog.domain.Blog;
+import kosta.springjspblog.repository.BlogRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+
+@Service
+@RequiredArgsConstructor
+public class BlogService {
+
+	private final BlogRepository blogRepository;
+
+    public Blog create(Blog blog){
+        return blogRepository.save(blog);
+    }
+
 //	/*블로그정보가져오기*/
 //	public BlogVo getBlog(String id) {
-//		return blogDao.selectBlog(id);
+//		return blogRepository.selectBlog(id);
 //	}
 //
 //	/*블로그 기본설정페이지 수정*/
@@ -35,7 +37,7 @@
 //		}
 //
 //    //블로그 기본설정내용 수정
-//		return blogDao.updateBlog(blogVo);
+//		return blogRepository.updateBlog(blogVo);
 //	}
-//
-//}
+
+}
