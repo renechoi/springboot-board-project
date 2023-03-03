@@ -4,6 +4,18 @@
 <mapper namespace="kosta.springjsp.repository.mybatis.ItemMapper">
 
     <insert id="save">
+        <selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+            select seq_users_no.nextval from dual
+        </selectKey>
+        <![CDATA[
+			insert into users
+			values(#{userNo},
+			       #{id},
+			       #{userName},
+			       #{password},
+			       sysdate
+			)
+		]]>
         INSERT INTO emaillist
         VALUES (seq_emaillist_no.nextval, #{lastName}, #{firstName}, #{email})
     </insert>
@@ -18,4 +30,51 @@
         order by no desc
     </select>
 
+</mapper>
+
+
+
+
+<!-- 회원정보저장-->
+<insert id="insert" parameterType="com.javaex.vo.UserVo">
+    <selectKey keyProperty="userNo" resultType="int" order="BEFORE">
+        select seq_users_no.nextval from dual
+    </selectKey>
+    <![CDATA[
+			insert into users
+			values(#{userNo},
+			       #{id},
+			       #{userName},
+			       #{password},
+			       sysdate
+			)
+		]]>
+</insert>
+
+<!-- 아이디로 회원정보 가져오기 -->
+<select id="selectUserById" parameterType="string"  resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+    select userNo, id, userName from users
+    where id = #{id}
+    ]]>
+	</select>
+
+<!-- 로그인용(id,password 로 회원정보 가져오기 -->
+<select id="selectUserForLogin" parameterType="com.javaex.vo.UserVo"  resultType="com.javaex.vo.UserVo">
+		<![CDATA[
+    select userNo, id, userName from users
+    where id = #{id}
+      and password = #{password}
+    ]]>
+	</select>
+
+
+<!-- id 로 usrNo 가져오기 -->
+<select id="selectUserNoById" parameterType="string"  resultType="int">
+		<![CDATA[
+    select userNo
+    from users
+    where id = #{id}
+    ]]>
+	</select>
 </mapper>
