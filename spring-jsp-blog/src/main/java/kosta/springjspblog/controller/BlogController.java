@@ -11,6 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import kosta.springjspblog.service.CategoryService;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -25,7 +26,7 @@ public class BlogController {
 
     private final BlogService blogService;
 
-//	private final CateService cateService;
+	private final CategoryService categoryService;
 //
 	private final ArticleService articleService;
 
@@ -140,29 +141,30 @@ public class BlogController {
 
 
 
-//	/*개인블로그 카테고리설정 페이지 출력*/
-//	/*등록 수정은 ajax로 api 컨트롤러 참고*/
-//	@RequestMapping(value="/{id}/admin/category", method=RequestMethod.GET)
-//	public String blogAdminCate(@PathVariable("id") String id, HttpSession session, Model model) {
-//		UserVo authUser = (UserVo)session.getAttribute("authUser");
-//
-//		//로그인했고 자신의 블로그이면 진행
-//		if( authUser != null && id.equals(authUser.getId())) {
-//			//블로그 기본정보 가져오기
-//			BlogVo blogVo = blogService.getBlog(id);
-//
-//			/*카테고리정보 가져오기*/
-//			List<CateVo> cateList = cateService.getCateList(blogVo.getUserNo());
-//
-//			model.addAttribute("blogVo", blogVo);
-//			model.addAttribute("cateList", cateList);
-//			return "blog/admin/blog-admin-cate";
-//
-//		}else { //타인의 블로그 설정페이지로 진입 시도한 경우
-//			return "error/403";
-//		}
-//
-//	}
+	/*개인블로그 카테고리설정 페이지 출력*/
+	/*등록 수정은 ajax로 api 컨트롤러 참고*/
+	@GetMapping(value="/{id}/admin/category")
+	public String blogAdminCate(@PathVariable("id") String id, HttpSession session, Model model) {
+		User authUser = (User)session.getAttribute("authUser");
+
+		//로그인했고 자신의 블로그이면 진행
+		if( authUser != null && id.equals(authUser.getId())) {
+			//블로그 기본정보 가져오기
+			Blog blog = blogService.getBlog(id);
+
+			/*카테고리정보 가져오기*/
+			List<Category> categories = categoryService.getCategories(blog.getUserNo());
+
+			model.addAttribute("blogVo", blog);
+			model.addAttribute("cateList", categories);
+			return "blog/admin/blog-admin-cate";
+
+		}else { //타인의 블로그 설정페이지로 진입 시도한 경우
+			return "error/403";
+		}
+	}
+
+
 //
 //
 //	/*개인블로그 글쓰기설정페이지 출력*/
