@@ -7,6 +7,6 @@ public interface JBlogRepository<T> {
     List<T> findAll();
     T findById(String id);
     T findByObject(T t);
-    T update();
+    T update(T t);
     T delete();
 }

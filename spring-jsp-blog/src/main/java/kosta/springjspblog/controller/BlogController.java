@@ -2,6 +2,7 @@ package kosta.springjspblog.controller;
 
 import kosta.springjspblog.domain.Article;
 import kosta.springjspblog.domain.Blog;
+import kosta.springjspblog.domain.Category;
 import kosta.springjspblog.domain.User;
 import kosta.springjspblog.service.ArticleService;
 import kosta.springjspblog.service.BlogService;
@@ -112,36 +113,36 @@ public class BlogController {
 	}
 
 
-//	/*개인블로그 기본설정페이지 수정*/
-//	@RequestMapping(value="/{id}/admin/basicModify", method=RequestMethod.POST)
-//	public String blogAdminBasicModify(@ModelAttribute BlogVo blogVo, HttpSession session, Model model) {
-//
-//	  //System.out.println("pid[" + pid +"]");
-//
-//		String id = blogVo.getId();
-//
-//		System.out.println("id[" + id +"]");
-//
-//		UserVo authUser = (UserVo)session.getAttribute("authUser");
-//
-//		//로그인했고 자신의 블로그이면 진행
-//		if( authUser != null && id.equals(authUser.getId())) {
-//			blogVo.setUserNo(authUser.getUserNo());
-//
-//			//System.out.println(blogVo);
-//
-//			//기본설정 수정
-//			blogService.blogAdminBasicModify(blogVo);
-//			return "redirect:/" + blogVo.getId() + "/admin/basic";
-//
-//		} else { //타인의 블로그 설정페이지 수정을 시도한 경우
-//			return "error/403";
-//		}
-//	}
-//
+	/*개인블로그 기본설정페이지 수정*/
+	@GetMapping(value="/{id}/admin/basicModify")
+	public String blogAdminBasicModify(@ModelAttribute Blog blog, HttpSession session, Model model) {
+
+	  //System.out.println("pid[" + pid +"]");
+
+		String id = blog.getId();
+		System.out.println("id [" + id +"]");
+		User authUser = (User)session.getAttribute("authUser");
+
+		//로그인했고 자신의 블로그이면 진행
+		if( authUser != null && id.equals(authUser.getId())) {
+			blog.setUserNo(authUser.getUserNo());
+
+			//System.out.println(blogVo);
+
+			//기본설정 수정
+			blogService.blogAdminBasicModify(blog);
+			return "redirect:/" + blog.getId() + "/admin/basic";
+
+		} else { //타인의 블로그 설정페이지 수정을 시도한 경우
+			return "error/403";
+		}
+	}
+
+
+
 //	/*개인블로그 카테고리설정 페이지 출력*/
 //	/*등록 수정은 ajax로 api 컨트롤러 참고*/
-//	@RequestMapping(value="/{id}/admin/cate", method=RequestMethod.GET)
+//	@RequestMapping(value="/{id}/admin/category", method=RequestMethod.GET)
 //	public String blogAdminCate(@PathVariable("id") String id, HttpSession session, Model model) {
 //		UserVo authUser = (UserVo)session.getAttribute("authUser");
 //
@@ -167,7 +168,7 @@ public class BlogController {
 //	/*개인블로그 글쓰기설정페이지 출력*/
 //	@RequestMapping(value="/{id}/admin/write", method=RequestMethod.GET)
 //	public String blogAdminWrite(@PathVariable("id") String id, HttpSession session, Model model) {
-//		UserVo authUser = (UserVo)session.getAttribute("authUser");
+//		User authUser = (User)session.getAttribute("authUser");
 //		System.out.println(authUser);
 //		System.out.println("id : " + id);
 //		System.out.println("authUser.getId() : " + authUser.getId());
@@ -175,10 +176,10 @@ public class BlogController {
 //		//로그인했고 자신의 블로그이면 진행
 //		if( authUser != null && id.equals(authUser.getId())) {
 //			//블로그 기본정보 가져오기
-//			BlogVo blogVo = blogService.getBlog(id);
+//			Blog blogVo = blogService.getBlog(id);
 //
 //			//카테고리 정보 가져오기 (셀렉트박스 출력용)
-//			List<CateVo> cateList = cateService.getCateList(blogVo.getUserNo());
+//			List<Category> cateList = cateService.getCateList(blogVo.getUserNo());
 //
 //			model.addAttribute("blogVo", blogVo);
 //			model.addAttribute("cateList", cateList);
@@ -189,7 +190,6 @@ public class BlogController {
 //		}
 //
 //	}
-//
 //
 //	/*개인블로그 글쓰기설정페이지 저장*/
 //	@RequestMapping(value="/{id}/admin/write", method=RequestMethod.POST)

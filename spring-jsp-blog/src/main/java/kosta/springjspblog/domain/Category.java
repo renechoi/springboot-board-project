@@ -14,5 +14,5 @@ public class Category {
 	private int userNo;
 	private int cnt;
 
-
 }
+

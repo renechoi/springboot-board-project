@@ -20,12 +20,12 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li class="selected"><a href="${pageContext.request.contextPath}/${authUser.id}/admin/basic">기본설정</a></li>
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/cate">카테고리</a></li>
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/write">글작성</a></li>
+					<li class="selected"><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/basic">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/${authUser.id}/blog/admin/category">카테고리</a></li>
+					<li><a href="${pageContext.request.contextPath}/${authUser.id}/blog/admin/write">글작성</a></li>
 				</ul>
 				
-				<form action="${pageContext.request.contextPath}/${authUser.id}/admin/basicModify" method="post" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/${authUser.id}/blog/admin/basicModify" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>

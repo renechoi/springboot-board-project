@@ -40,7 +40,7 @@ public class ArticleRepository implements JBlogRepository<Article>{
     }
 
     @Override
-    public Article update() {
+    public Article update(Article article) {
         return null;
     }
 

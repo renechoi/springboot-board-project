@@ -34,7 +34,7 @@ public class UserRepository implements JBlogRepository<User> {
     }
 
     @Override
-    public User update() {
+    public User update(User user) {
         return null;
     }
 

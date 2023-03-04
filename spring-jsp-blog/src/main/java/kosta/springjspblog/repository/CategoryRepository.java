@@ -35,7 +35,7 @@ public class CategoryRepository implements JBlogRepository<Category> {
     }
 
     @Override
-    public Category update() {
+    public Category update(Category category) {
         return null;
     }
 
