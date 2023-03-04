@@ -1,8 +1,7 @@
 package kosta.springjspblog.repository;
 
-import kosta.springjspblog.repository.mybatis.BlogMapper;
-import kosta.springjspblog.repository.mybatis.UserMapper;
 import kosta.springjspblog.domain.Blog;
+import kosta.springjspblog.repository.mybatis.BlogMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -27,7 +26,7 @@ public class BlogRepository implements JBlogRepository<Blog>{
 
     @Override
     public Blog findById(String id) {
-        return null;
+        return blogMapper.findById(id);
     }
 
     @Override

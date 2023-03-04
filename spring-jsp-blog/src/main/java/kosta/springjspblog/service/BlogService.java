@@ -17,11 +17,11 @@ public class BlogService {
         return blogRepository.save(blog);
     }
 
-//	/*블로그정보가져오기*/
-//	public BlogVo getBlog(String id) {
-//		return blogRepository.selectBlog(id);
-//	}
-//
+	/*블로그정보가져오기*/
+	public Blog getBlog(String id) {
+		return blogRepository.findById(id);
+	}
+
 //	/*블로그 기본설정페이지 수정*/
 //	public int blogAdminBasicModify(BlogVo blogVo) {
 //

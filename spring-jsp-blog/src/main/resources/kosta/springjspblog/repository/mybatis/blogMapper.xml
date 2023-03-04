@@ -18,10 +18,10 @@
     </insert>
 
 
-    <select id="findById" parameterType="string" resultType="User">
-        SELECT userNo, id, userName
-        FROM kostablog.users
-        WHERE userNo = #{id}
+    <select id="findById" parameterType="string" resultType="Blog">
+        SELECT id, blogTitle, logoFile
+        FROM kostablog.blog
+        WHERE id = #{id}
     </select>
 
 

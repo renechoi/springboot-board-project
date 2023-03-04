@@ -5,12 +5,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Data
-public class Post {
+public class Article {
 
-	private int postNo;
-	private int cateNo;
-	private String postTitle;
-	private String postContent;
+	private int articleNo;
+	private int categoryNo;
+	private String articleTitle;
+	private String articleContent;
 	private String regDate;
 
 }

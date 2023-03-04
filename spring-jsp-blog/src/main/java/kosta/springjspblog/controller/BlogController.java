@@ -1,113 +1,117 @@
 package kosta.springjspblog.controller;
 
+import kosta.springjspblog.domain.Article;
 import kosta.springjspblog.domain.Blog;
+import kosta.springjspblog.domain.User;
+import kosta.springjspblog.service.ArticleService;
 import kosta.springjspblog.service.BlogService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
+import java.util.Optional;
 
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("/blog")
 public class BlogController {
 
-	private final BlogService blogService;
+    private final BlogService blogService;
 
 //	private final CateService cateService;
 //
-//	private final PostService postService;
+	private final ArticleService articleService;
 
-	@GetMapping(value = "/{id}/create")
-	public String createForm() {
-		System.out.println("BlogController.createForm");
-		return "blog/blog-createForm";
-	}
+    @GetMapping(value = "/{id}/create")
+    public String createForm() {
+        return "blog/blog-createForm";
+    }
 
-	@PostMapping("/create")
-	public Blog create(@ModelAttribute Blog blog, HttpSession session){
-		blogService.create(blog);
-		return blog;
-	}
+    @PostMapping("/create")
+    public String create(@ModelAttribute Blog blog, HttpSession session) {
+        User user = (User) session.getAttribute("authUser");
 
-//	/*개인블로그 메인페이지*/
-//	@RequestMapping(value="/{id}", method=RequestMethod.GET)
-//	public String blogMain(@PathVariable("id") String id,
-//			               @RequestParam(value="crtCateNo", required=false, defaultValue="0") int crtCateNo,
-//			               @RequestParam(value="postNo", required=false, defaultValue="0") int postNo,
-//			               HttpSession session, Model model) {
-//
-//		//방문한 블로그정보
-//		BlogVo blogVo = blogService.getBlog(id);
-//
-//		System.out.println(blogVo);
-//
-//		//방문한 블로그의 회원정보 구하기
-//		int userNo = blogVo.getUserNo();
-//
+        if (blog != null) { //성공시
+            blog.setId(user.getId());
+            session.setAttribute("blog", blog);
+            blogService.create(blog);
+            return "blog/blog-main";
+        }
+        return "redirect:/result=fail";
+    }
+
+	@GetMapping(value="/{id}")
+	public String myBlog(@PathVariable("id") String id,
+                         @RequestParam(value="crtCateNo", defaultValue="0") int crtCateNo,
+                         @RequestParam(value= "articleNo", defaultValue="0") int articleNo,
+                         HttpSession session, Model model) {
+
+		System.out.println("BlogController.myBlog");
+
+		//방문한 블로그정보
+		Blog blog = blogService.getBlog(id);
+		System.out.println(blog);
+
+		//방문한 블로그의 회원정보 구하기
+		int userNo = blog.getUserNo();
 //
 //		//방문한 블로그의 카테고리정보
-//		List<CateVo> cateList = cateService.getCateList(userNo);
-//
+//		List<Category> cateList = cateService.getCateList(userNo);
 //
 //		//포스트리스트  기본값 전체, 선택한 카테고리 (crtCateNo) 리스트가져오기, 선택한 카테고리 없으면 전체리스트 가져오기
-//		List<PostVo> postList = postService.getPostList(userNo, crtCateNo);
-//
-//		System.out.println("postNo " + postNo);
-//		//선택한 포스트 글 출력하기
-//		if( postNo == 0 && postList.size() != 0  ) {//postNo == 0  파라미터에서 넘어온 값이 없을때
-//			                                        //postList.size() != 0 출력된 리스트가 1개이상일때
-//			//맨앞의 글 번호 가져옴
-//			postNo = postList.get(0).getPostNo();
-//		}
-//		//파라미터로 넘어온 경우에는 넘어온 번호(선택한 포스트번호)
-//		//그이외에는 맨앞의 글번호
-//		//로 포스트를 가져옴
-//		PostVo postVo = postService.getPost(postNo);
-//
-//		model.addAttribute("blogVo", blogVo);
+		List<Article> articles = articleService.getArticles(userNo, crtCateNo);
+        int articlesSize  = Optional.ofNullable(articles).map(List::size).orElse(0);
+
+		//선택한 포스트 글 출력하기
+		if( articleNo == 0 && articlesSize != 0  ) {//postNo == 0  파라미터에서 넘어온 값이 없을때
+			                                        //postList.size() != 0 출력된 리스트가 1개이상일때
+			//맨앞의 글 번호 가져옴
+			articleNo = articleAtFirst(articles).getArticleNo();
+		}
+		//파라미터로 넘어온 경우에는 넘어온 번호(선택한 포스트번호)
+		//그이외에는 맨앞의 글번호
+		//로 포스트를 가져옴
+		Article article = articleService.getArticle(articleNo);
+
+		model.addAttribute("blogVo", blog);
 //		model.addAttribute("cateList", cateList);
-//		model.addAttribute("postList", postList);
-//		model.addAttribute("postVo", postVo);
-//		model.addAttribute("newLine", "\r\n"); //줄바꾸기용
-//		return "blog/blog-main";
-//	}
+		model.addAttribute("postList", articles);
+		model.addAttribute("postVo", article);
+		model.addAttribute("newLine", "\r\n"); //줄바꾸기용
+		return "blog/blog-main";
+	}
+
+    private static Article articleAtFirst(List<Article> articles) {
+        return articles.get(0);
+    }
+
+	/*개인블로그 기본설정페이지 출력*/
+	@GetMapping(value="/{id}/admin/basic")
+	public String blogAdminBasic(@PathVariable("id") String id, HttpSession session, Model model) {
+
+		User authUser = (User)session.getAttribute("authUser");
+
+        System.out.println("authUser = " + authUser);
+		//로그인했고 자신의 블로그이면 진행
+		if( authUser != null && id.equals(authUser.getId())) {
+			//블로그 기본정보 가져오기
+			Blog blog = blogService.getBlog(id);
+			model.addAttribute("blogVo", blog);
+			return "blog/admin/blog-admin-basic";
+
+		} else { //타인의 블로그 설정페이지로 진입 시도한 경우
+
+			return "error/403";
+		}
+	}
 
 
-
-
-
-
-
-
-
-
-//
-//	/*개인블로그 기본설정페이지 출력*/
-//	@RequestMapping(value="/{id}/admin/basic", method=RequestMethod.GET)
-//	public String blogAdminBasic(@PathVariable("id") String id, HttpSession session, Model model) {
-//
-//		UserVo authUser = (UserVo)session.getAttribute("authUser");
-//
-//		//로그인했고 자신의 블로그이면 진행
-//		if( authUser != null && id.equals(authUser.getId())) {
-//			//블로그 기본정보 가져오기
-//			BlogVo blogVo = blogService.getBlog(id);
-//			model.addAttribute("blogVo", blogVo);
-//			return "blog/admin/blog-admin-basic";
-//
-//		} else { //타인의 블로그 설정페이지로 진입 시도한 경우
-//			return "error/403";
-//		}
-//
-//	}
-//
-//
 //	/*개인블로그 기본설정페이지 수정*/
 //	@RequestMapping(value="/{id}/admin/basicModify", method=RequestMethod.POST)
 //	public String blogAdminBasicModify(@ModelAttribute BlogVo blogVo, HttpSession session, Model model) {

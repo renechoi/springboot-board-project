@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kosta.springjspblog.repository.mybatis.ArticleMapper">
+
+    <insert id="save" parameterType="Article" useGeneratedKeys="true" keyProperty="articleNo">
+
+        insert into kostablog.article(articleNo, categoryNo, articleTitle, articleContent, regDate)
+        values(
+        #{articleNo},
+        #{categoryNo},
+        #{articleTitle},
+        #{articleContent},
+        sysdate()
+        )
+
+        <selectKey resultType="String" keyProperty="articleNo" keyColumn="articleNo" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+    </insert>
+
+
+    <select id="findById" parameterType="string" resultType="Article">
+        SELECT articleNo, categoryNo, articleTitle, articleContent, regDate
+        FROM kostablog.article
+        WHERE articleNo = #{articleNo}
+    </select>
+
+    <!-- 특정 회원의 선택한 카테고리의 포스트 리스트 가져오기 -->
+    <!-- 선택한 카테고리가 없으면 전체 -->
+    <select id="findAll" parameterType="map" resultType="Article">
+        SELECT category.id,
+        article.articleNo,
+        article.categoryNo,
+        article.articleTitle,
+        article.articleContent,
+        DATE_FORMAT(article.regDate, '%Y%m%d%H%i%s')
+        FROM kostablog.CATEGORY category,
+        kostablog.ARTICLE article
+        WHERE category.categoryNo = article.categoryNo
+        AND category.id = #{userNo}
+        <if test="crtCateNo != null and crtCateNo != 0">
+            AND article.categoryNo = #{crtCateNo}
+        </if>
+        ORDER BY articleNo DESC
+    </select>
+
+
+</mapper>
+
