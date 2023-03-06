@@ -16,7 +16,8 @@ public class CategoryRepository implements JBlogRepository<Category> {
 
     @Override
     public Category save(Category category) {
-        return null;
+        categoryMapper.save(category);
+        return category;
     }
 
     @Override
@@ -25,12 +26,12 @@ public class CategoryRepository implements JBlogRepository<Category> {
     }
 
     public List<Category> findAll(int userNo) {
-        return null;
+        return categoryMapper.findAll(userNo);
     }
 
     @Override
     public Category findById(String id) {
-        return null;
+        return categoryMapper.findById(id);
     }
 
     @Override
@@ -45,6 +46,10 @@ public class CategoryRepository implements JBlogRepository<Category> {
 
     @Override
     public Category delete() {
+        return null;
+    }
+
+    public Category delete(int categoryNo) {
         return null;
     }
 }

@@ -7,11 +7,11 @@ import org.springframework.stereotype.Component;
 @Data
 public class Category {
 
-	private int cateNo;
-	private String cateName;
-	private String description;
+	private int categoryNo;
+	private String categoryName;
+	private String categoryDescription;
 	private String regDate;
-	private int userNo;
+	private int id;
 	private int cnt;
 
 }

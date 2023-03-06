@@ -5,27 +5,32 @@
 
     <insert id="save" parameterType="Category" useGeneratedKeys="true" keyProperty="categoryNo">
 
-        insert into kostablog.category(categoryNo, id, categoryName, categoryDescription, regDate)
+        <selectKey keyProperty="categoryNo" resultType="int" order="BEFORE">
+            SELECT IFNULL(MAX(categoryNo) + 1, 1) FROM kostablog.category
+        </selectKey>
+
+        insert into kostablog.category(categoryNo, categoryName, categoryDescription, regDate)
         values(
         #{categoryNo},
-        #{id},
         #{categoryName},
         #{categoryDescription},
         sysdate()
         )
 
-        <selectKey resultType="String" keyProperty="id" keyColumn="id" order="AFTER">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+<!--        <selectKey resultType="String" keyProperty="id" keyColumn="id" order="AFTER">-->
+<!--            SELECT LAST_INSERT_ID()-->
+<!--        </selectKey>-->
 
     </insert>
 
 
-    <select id="findById" parameterType="string" resultType="Blog">
+    <select id="findById" parameterType="string" resultType="Category">
         SELECT categoryNo, id, categoryName, categoryDescription, regDate
         FROM kostablog.category
         WHERE id = #{id}
     </select>
+
+
 
 
 

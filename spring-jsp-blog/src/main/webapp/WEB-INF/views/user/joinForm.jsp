@@ -50,7 +50,7 @@
 $("#btn-checkid").on("click", function(){
  	var id = $("[name=id]").val();
  	$.ajax({
-		url : "${pageContext.request.contextPath }/user/idcheck",
+		url : "${pageContext.request.contextPath }/user/idCheck",
 		type : "post",
 		data : {id: id},
 		dataType : "json",

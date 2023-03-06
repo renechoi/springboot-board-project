@@ -41,9 +41,10 @@ public class BlogController {
 
         if (blog != null) { //성공시
             blog.setId(user.getId());
+			blog.setUserNo(user.getUserNo());
             session.setAttribute("blog", blog);
-            blogService.create(blog);
-            return "blog/blog-main";
+			Blog createdBlog = blogService.create(blog);
+			return "blog/blog-main";
         }
         return "redirect:/result=fail";
     }
@@ -139,8 +140,6 @@ public class BlogController {
 		}
 	}
 
-
-
 	/*개인블로그 카테고리설정 페이지 출력*/
 	/*등록 수정은 ajax로 api 컨트롤러 참고*/
 	@GetMapping(value="/{id}/admin/category")
@@ -157,7 +156,7 @@ public class BlogController {
 
 			model.addAttribute("blogVo", blog);
 			model.addAttribute("cateList", categories);
-			return "blog/admin/blog-admin-cate";
+			return "/blog/admin/blog-admin-category";
 
 		}else { //타인의 블로그 설정페이지로 진입 시도한 경우
 			return "error/403";
@@ -165,8 +164,8 @@ public class BlogController {
 	}
 
 
-//
-//
+
+
 //	/*개인블로그 글쓰기설정페이지 출력*/
 //	@RequestMapping(value="/{id}/admin/write", method=RequestMethod.GET)
 //	public String blogAdminWrite(@PathVariable("id") String id, HttpSession session, Model model) {

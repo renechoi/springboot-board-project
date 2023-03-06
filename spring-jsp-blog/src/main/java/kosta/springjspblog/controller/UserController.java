@@ -6,7 +6,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.PrintWriter;
 
 @Controller
 @RequestMapping(value = "/user")
@@ -53,7 +56,7 @@ public class UserController {
 	}
 
 	@ResponseBody
-	@PostMapping(value = "/idcheck")
+	@PostMapping(value = "/idCheck")
 	public boolean cateList(String id) {
 		return userService.idCheck(id);
 	}

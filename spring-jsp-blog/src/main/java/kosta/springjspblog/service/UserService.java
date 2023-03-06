@@ -34,21 +34,21 @@ public class UserService {
 
         log.info("savedUser userNo ={}", userNo);
 		//블로그 초기값 저장(개설)
-		Blog blog = new Blog();
-		blog.setUserNo(userNo);
-		blog.setBlogTitle(user.getUserName() +"의 블로그입니다.");
-		blog.setLogoFile("default");
-        session.setAttribute("blog", blog);
-
-		blogRepository.save(blog);
-
-		//카테고리 초기값 저장
-		Category category = new Category();
-		category.setCateName("미분류");
-		category.setDescription("기본으로 만들어지는 카테고리 입니다.");
-		category.setUserNo(userNo);
-
-		categoryRepository.save(category);
+//		Blog blog = new Blog();
+//		blog.setUserNo(userNo);
+//		blog.setBlogTitle(user.getUserName() +"의 블로그입니다.");
+//		blog.setLogoFile("default");
+//        session.setAttribute("blog", blog);
+//
+//		blogRepository.save(blog);
+//
+//		//카테고리 초기값 저장
+//		Category category = new Category();
+//		category.setCateName("미분류");
+//		category.setDescription("기본으로 만들어지는 카테고리 입니다.");
+//		category.setUserNo(userNo);
+//
+//		categoryRepository.save(category);
     }
 
     public boolean idCheck(String id) {
