@@ -3,6 +3,7 @@ package kosta.springjspblog.service;
 import java.util.List;
 
 import kosta.springjspblog.domain.Category;
+import kosta.springjspblog.domain.User;
 import kosta.springjspblog.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,8 +16,8 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     /*회원번호로 가테고리 가져오기*/
-    public List<Category> getCategories(int userNo) {
-        return categoryRepository.findAll(userNo);
+    public List<Category> getCategories(String userId) {
+        return categoryRepository.findAll(userId);
     }
 
     /*카테고리 추가*/

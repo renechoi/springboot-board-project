@@ -6,6 +6,7 @@ import kosta.springjspblog.domain.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Repository
@@ -25,8 +26,9 @@ public class CategoryRepository implements JBlogRepository<Category> {
         return null;
     }
 
-    public List<Category> findAll(int userNo) {
-        return categoryMapper.findAll(userNo);
+    public List<Category> findAll(String userId) {
+
+        return categoryMapper.findAll(userId);
     }
 
     @Override

@@ -8,9 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Data
 public class Blog {
 
-	private int userNo;
+	private String userId;
 	private String blogTitle;
 	private String logoFile;
-	private String id;
 	private MultipartFile file;
 }

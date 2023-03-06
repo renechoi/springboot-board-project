@@ -9,29 +9,37 @@
             SELECT IFNULL(MAX(categoryNo) + 1, 1) FROM kostablog.category
         </selectKey>
 
-        insert into kostablog.category(categoryNo, categoryName, categoryDescription, regDate)
+        insert into kostablog.category(categoryNo, userId, categoryName, categoryDescription, regDate)
         values(
         #{categoryNo},
+        #{userId},
         #{categoryName},
         #{categoryDescription},
         sysdate()
         )
 
-<!--        <selectKey resultType="String" keyProperty="id" keyColumn="id" order="AFTER">-->
-<!--            SELECT LAST_INSERT_ID()-->
-<!--        </selectKey>-->
+        <!--        <selectKey resultType="String" keyProperty="id" keyColumn="id" order="AFTER">-->
+        <!--            SELECT LAST_INSERT_ID()-->
+        <!--        </selectKey>-->
 
     </insert>
 
 
     <select id="findById" parameterType="string" resultType="Category">
-        SELECT categoryNo, id, categoryName, categoryDescription, regDate
+        SELECT categoryNo, userId, categoryName, categoryDescription, regDate
         FROM kostablog.category
-        WHERE id = #{id}
+        WHERE userId = #{userId}
     </select>
 
 
-
+    <select id="findAll" parameterType="String" resultType="Category">
+        SELECT category.categoryNo, category.userId, category.categoryName, category.categoryDescription, category.regDate, COUNT(article.categoryNo) AS cnt
+        FROM kostablog.CATEGORY category
+                 LEFT JOIN kostablog.ARTICLE article ON category.categoryNo = article.categoryNo
+        WHERE userId = #{userId}
+        GROUP BY category.categoryNo
+        ORDER BY category.categoryNo DESC;
+    </select>
 
 
 

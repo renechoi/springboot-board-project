@@ -44,48 +44,57 @@ CREATE TABLE users (
 );
 
 CREATE TABLE blog (
-                      id        VARCHAR(50),
+                      userId        VARCHAR(50),
                       blogTitle VARCHAR(200)   NOT NULL,
                       logoFile  VARCHAR(200),
-                      PRIMARY KEY(id),
-                      CONSTRAINT c_blog_fk FOREIGN KEY (id)
+                      PRIMARY KEY(userId),
+                      CONSTRAINT c_blog_fk FOREIGN KEY (userId)
                           REFERENCES users(id)
 );
 
+drop table blog;
+
+drop table category;
+
+DROP TABLE article
+
+drop table comments
 
 
 CREATE TABLE category (
-                          cateNo        INT,
-                          id            VARCHAR(50),
+                          categoryNo        INT,
+                          userId            VARCHAR(200) ,
                           categoryName      VARCHAR(200)   NOT NULL,
                           categoryDescription   VARCHAR(500),
                           regDate       DATE            NOT NULL,
-                          PRIMARY KEY(cateNo),
-                          CONSTRAINT c_category_fk FOREIGN KEY (id)
-                              REFERENCES blog(id)
+                          PRIMARY KEY(categoryNo),
+                          CONSTRAINT c_category_fk FOREIGN KEY (userId)
+                              REFERENCES blog(userId)
 );
 
 
-CREATE TABLE post (
-                      postNo        INT,
-                      cateNo        INT,
-                      postTitle     VARCHAR(300)   NOT NULL,
-                      postContent   VARCHAR(4000),
+CREATE TABLE article (
+                      articleNo        INT,
+                      categoryNo        INT,
+                      articleTitle     VARCHAR(300)   NOT NULL,
+                      articleContent   VARCHAR(4000),
                       regDate       DATE            NOT NULL,
-                      PRIMARY KEY(postNo),
-                      CONSTRAINT c_post_fk FOREIGN KEY (cateNo)
-                          REFERENCES category(cateNo)
+                      PRIMARY KEY(articleNo),
+                      CONSTRAINT c_post_fk FOREIGN KEY (categoryNo)
+                          REFERENCES category(categoryNo)
 );
+
+
 
 
 CREATE TABLE comments (
-                          cmtNo         INT,
-                          postNo        INT,
-                          cmtContent    VARCHAR(300)   NOT NULL,
+                          commentNo         INT,
+                          articleNo        INT,
+                          commentContent    VARCHAR(300)   NOT NULL,
                           regDate       DATE            NOT NULL,
-                          PRIMARY KEY(cmtNo),
-                          CONSTRAINT c_comment_fk FOREIGN KEY (postNo)
-                              REFERENCES post(postNo)
+                          PRIMARY KEY(commentNo),
+                          CONSTRAINT c_comment_fk FOREIGN KEY (articleNo)
+                              REFERENCES article(articleNo)
 );
 
 

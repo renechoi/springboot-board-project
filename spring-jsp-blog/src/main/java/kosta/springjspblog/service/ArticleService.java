@@ -20,8 +20,8 @@ public class ArticleService {
 	}
 
 	/*특정 회원의 선택한 카테고리의 포스트 리스트 가져오기*/
-	public List<Article> getArticles(int userNo, int crtCateNo) {
-		return articleRepository.findAll(userNo, crtCateNo);
+	public List<Article> getArticles(String userId, int crtCateNo) {
+		return articleRepository.findAll(userId, crtCateNo);
 	}
 
 	/*선택한 포스트 가져오기*/

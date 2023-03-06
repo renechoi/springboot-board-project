@@ -10,7 +10,7 @@ import java.util.List;
 public interface CategoryMapper {
 
     int save(Category category);
-    List<Category> findAll(int userNo);
+    List<Category> findAll(String userId);
     Category findById(String id);
     Category findByObject(Category category);
 }

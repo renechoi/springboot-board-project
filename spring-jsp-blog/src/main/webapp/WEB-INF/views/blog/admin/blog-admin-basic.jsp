@@ -25,7 +25,7 @@
 					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/write">글작성</a></li>
 				</ul>
 				
-				<form action="${pageContext.request.contextPath}/${authUser.id}/blog/admin/basicModify" method="post" enctype="multipart/form-data">
+				<form action="${pageContext.request.contextPath}/blog/${authUser.id}/admin/basicModify" method="post" enctype="multipart/form-data">
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
@@ -34,10 +34,10 @@
 			      		<tr>
 			      			<td class="t">로고이미지</td>
 			      			<c:if test="${blogVo.logoFile eq 'default'}">
-			      				<td><img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg"></td>   
+			      				<td><img src="../webapp/assets/images/spring-logo.jpg"></td>
 			      			</c:if>
 			      			<c:if test="${blogVo.logoFile ne 'default'}">
-			      				<td><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"></td>   
+			      				<td><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"></td>
 			      			</c:if>
 			      			   			
 			      		</tr>      		

@@ -13,4 +13,5 @@ public interface BlogMapper {
     List<Blog> findAll();
     Blog findById(String id);
     Blog findByObject(Blog blog);
+    Blog update(Blog blog);
 }

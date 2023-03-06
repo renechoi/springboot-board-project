@@ -3,27 +3,38 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kosta.springjspblog.repository.mybatis.BlogMapper">
 
-    <insert id="save" parameterType="Blog" useGeneratedKeys="true" keyProperty="id">
+    <insert id="save" parameterType="Blog" useGeneratedKeys="true" keyProperty="userId">
 
-        insert into kostablog.blog(id, blogTitle, logoFile)
+        insert into kostablog.blog(userId, blogTitle, logoFile)
         values(
-        #{id},
+        #{userId},
         #{blogTitle},
         #{logoFile})
 
-        <selectKey resultType="String" keyProperty="id" keyColumn="id" order="AFTER">
+        <selectKey resultType="String" keyProperty="userId" keyColumn="userId" order="AFTER">
             SELECT LAST_INSERT_ID()
         </selectKey>
 
     </insert>
 
 
-    <select id="findById" parameterType="string" resultType="Blog">
-        SELECT id, blogTitle, logoFile
+
+    <select id="findById" parameterType="String" resultType="Blog">
+        SELECT userId, blogTitle, logoFile
         FROM kostablog.blog
-        WHERE id = #{id}
+        WHERE userId = #{userNo}
     </select>
 
+
+
+    <select id="update" parameterType="String" resultType="Blog">
+        update kostablog.blog
+        set blogTitle = #{blogTitle}
+        <if test="logoFile !=null and logoFile !='' ">
+            , logoFile = #{logoFile}
+        </if>
+        where userId = #{userId}
+    </select>
 
 
 

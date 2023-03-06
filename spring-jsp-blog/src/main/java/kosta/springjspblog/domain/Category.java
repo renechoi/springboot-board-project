@@ -11,7 +11,7 @@ public class Category {
 	private String categoryName;
 	private String categoryDescription;
 	private String regDate;
-	private int id;
+	private String userId;
 	private int cnt;
 
 }

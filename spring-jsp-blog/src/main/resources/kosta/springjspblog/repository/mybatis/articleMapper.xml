@@ -5,6 +5,10 @@
 
     <insert id="save" parameterType="Article" useGeneratedKeys="true" keyProperty="articleNo">
 
+        <selectKey keyProperty="articleNo" resultType="int" order="BEFORE">
+            SELECT IFNULL(MAX(articleNo) + 1, 1) FROM kostablog.article
+        </selectKey>
+
         insert into kostablog.article(articleNo, categoryNo, articleTitle, articleContent, regDate)
         values(
         #{articleNo},
@@ -14,9 +18,9 @@
         sysdate()
         )
 
-        <selectKey resultType="String" keyProperty="articleNo" keyColumn="articleNo" order="AFTER">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+<!--        <selectKey resultType="String" keyProperty="articleNo" keyColumn="articleNo" order="AFTER">-->
+<!--            SELECT LAST_INSERT_ID()-->
+<!--        </selectKey>-->
 
     </insert>
 
@@ -30,7 +34,7 @@
     <!-- 특정 회원의 선택한 카테고리의 포스트 리스트 가져오기 -->
     <!-- 선택한 카테고리가 없으면 전체 -->
     <select id="findAll" parameterType="map" resultType="Article">
-        SELECT category.id,
+        SELECT category.userId,
         article.articleNo,
         article.categoryNo,
         article.articleTitle,
@@ -39,7 +43,7 @@
         FROM kostablog.CATEGORY category,
         kostablog.ARTICLE article
         WHERE category.categoryNo = article.categoryNo
-        AND category.id = #{userNo}
+        AND category.userId = #{userId}
         <if test="crtCateNo != null and crtCateNo != 0">
             AND article.categoryNo = #{crtCateNo}
         </if>

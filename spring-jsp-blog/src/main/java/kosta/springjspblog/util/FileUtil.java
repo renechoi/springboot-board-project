@@ -14,7 +14,7 @@ public class FileUtil {
 	public UploadFile fileUpload(MultipartFile file) {
 		
 	  //String saveDir = "D:\\javaStudy\\upload";
-	  String saveDir = "/Users/jeongjonguk/eclipse-workspace/jblog/src/main/resources/upload";
+	  String saveDir = "/Users/Rene/Documents/rene/Kosta/spring-jsp-blog/src/main/resources/upload";
 
 		// 원파일이름
 		String orgName = file.getOriginalFilename();

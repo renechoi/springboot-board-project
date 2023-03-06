@@ -42,7 +42,7 @@
             </table>
 
             <h4 class="n-c">새로운 카테고리 추가</h4>
-            <table id="admin-cat-add" data-userno="${blogVo.userNo}">
+            <table id="admin-cat-add" data-userno="${blogVo.userId}">
                 <tr>
                     <td class="t">카테고리명</td>
                     <td><input type="text" name="name" value=""></td>
@@ -79,15 +79,15 @@
     $("#btnAddCate").on("click", function () {
         var cateName = $("[name=name]").val();
         var description = $("[name=desc]").val();
-        var userNo = ${blogVo.userNo};
+        var userId = `${blogVo.userId}`;
         console.log(cateName);
         console.log(description);
-        console.log(userNo);
+        console.log(userId);
 
         var category = {
             categoryName: cateName,
             categoryDescription: description,
-            userNo: userNo
+            userId: userId
         };
         $.ajax({
             url: "${pageContext.request.contextPath }/api/category/add",

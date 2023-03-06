@@ -22,9 +22,9 @@
 			<div id="content">
 				<div class="blog-content">
 					<c:if test="${not empty postVo}">
-						<h4>${postVo.postTitle}</h4>
+						<h4>${postVo.articleTitle}</h4>
 						<p>
-						${fn:replace(postVo.postContent, newLine, "<br>") }
+						${fn:replace(postVo.articleContent, newLine, "<br>") }
 						<p>
 					</c:if>
 					<c:if test="${empty postVo}">
@@ -37,7 +37,7 @@
 				<ul class="blog-list">
 					<c:forEach items="${postList}" var="postVo">
 						<li>
-							<a href="${pageContext.request.contextPath}/${blogVo.id}?crtCateNo=${param.crtCateNo}&postNo=${postVo.postNo}">${postVo.postTitle}</a> 
+							<a href="${pageContext.request.contextPath}/blog/${blogVo.userId}?categoryNo=${postVo.categoryNo}&postNo=${postVo.articleNo}">${postVo.articleTitle}</a>
 							<span>${postVo.regDate}</span>
 						</li>
 					</c:forEach>
@@ -51,16 +51,17 @@
 					<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
 				</c:if>
 				<c:if test="${blogVo.logoFile ne 'default'}">
-					<img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}">
+					<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+<%--					<img src="${pageContext.request.contextPath}/resources/upload/1678091707628636c81a3-3b82-434c-add7-97e46bcaca72.jpeg">--%>
 				</c:if>
 			</div>
 		</div>
 
 		<div id="navigation">
-			<h2><a href="${pageContext.request.contextPath}/${blogVo.id}">카테고리</a></h2>
+			<h2><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}">카테고리</a></h2>
 			<ul>
 				<c:forEach items="${cateList}" var="cateVo">
-					<li><a href="${pageContext.request.contextPath}/${blogVo.id}?crtCateNo=${cateVo.cateNo}">${cateVo.cateName}</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}?categoryNo=${cateVo.categoryNo}">${cateVo.categoryName}</a></li>
 				</c:forEach>
 			</ul>
 		</div>

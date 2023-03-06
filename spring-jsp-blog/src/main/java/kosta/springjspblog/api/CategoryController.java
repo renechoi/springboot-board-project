@@ -26,14 +26,16 @@ public class CategoryController {
     public List<Category> cateList(HttpSession session) {
         //로그인한 사용자의 카테고리 리스트를 가져옴
         User authUser = (User) session.getAttribute("authUser");
-        return categoryService.getCategories(authUser.getUserNo());
+        return categoryService.getCategories(authUser.getId());
     }
 
     /*카테고리 추가*/
     @ResponseBody
     @PostMapping(value = "/add")
-    public Category cateAdd(@ModelAttribute Category category) {
+    public Category cateAdd(@ModelAttribute Category category, HttpSession session) {
         //카테고리 내용을 저장하고 방금저장한 카테고리 정보 모두를 가져온다
+        User authUser = (User) session.getAttribute("authUser");
+        category.setUserId(authUser.getId());
         return categoryService.add(category);
     }
 

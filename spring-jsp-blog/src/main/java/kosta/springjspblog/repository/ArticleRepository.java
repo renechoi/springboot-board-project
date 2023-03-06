@@ -16,6 +16,7 @@ public class ArticleRepository implements JBlogRepository<Article>{
 
     @Override
     public Article save(Article article) {
+        articleMapper.save(article);
         return article;
     }
 
@@ -24,9 +25,8 @@ public class ArticleRepository implements JBlogRepository<Article>{
         return null;
     }
 
-    public List<Article> findAll(int userNo, int crtCateNo) {
-        articleMapper.findAll(userNo, crtCateNo);
-        return null;
+    public List<Article> findAll(String userId, int crtCateNo) {
+        return articleMapper.findAll(userId, crtCateNo);
     }
 
     @Override

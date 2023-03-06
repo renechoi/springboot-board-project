@@ -20,21 +20,21 @@
 		<div id="wrapper">
 			<div id="content" class="full-screen">
 				<ul class="admin-menu">
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/basic">기본설정</a></li>
-					<li><a href="${pageContext.request.contextPath}/${authUser.id}/admin/cate">카테고리</a></li>
-					<li class="selected"><a href="${pageContext.request.contextPath}/${authUser.id}/admin/write">글작성</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/basic">기본설정</a></li>
+					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/category">카테고리</a></li>
+					<li class="selected"><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/write">글작성</a></li>
 				</ul>
 				
 				
-				<form action="${pageContext.request.contextPath}/${authUser.id}/admin/write" method="post">
+				<form action="${pageContext.request.contextPath}/blog/${authUser.id}/admin/write" method="post">
 			      	<table class="admin-cat-write">
 			      		<tr>
 			      			<td class="t">제목</td>
 			      			<td>
-			      				<input type="text" size="60" name="postTitle">
-				      			<select name="cateNo">
+			      				<input type="text" size="60" name="articleTitle">
+				      			<select name="categoryNo">
 				      				<c:forEach items="${cateList}" var="cateVo">
-				      					<option value="${cateVo.cateNo}">${cateVo.cateName}</option>
+				      					<option value="${cateVo.categoryNo}">${cateVo.categoryName}</option>
 				      				</c:forEach>
 				      				
 				      			</select>
@@ -42,7 +42,7 @@
 			      		</tr>
 			      		<tr>
 			      			<td class="t">내용</td>
-			      			<td><textarea name="postContent"></textarea></td>
+			      			<td><textarea name="articleContent"></textarea></td>
 			      		</tr>
 			      		<tr>
 			      			<td>&nbsp;</td>

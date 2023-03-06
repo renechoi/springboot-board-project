@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class BlogRepository implements JBlogRepository<Blog>{
+public class BlogRepository implements JBlogRepository<Blog> {
 
     private final BlogMapper blogMapper;
 
@@ -36,7 +36,7 @@ public class BlogRepository implements JBlogRepository<Blog>{
 
     @Override
     public Blog update(Blog blog) {
-        return null;
+       return blogMapper.update(blog);
     }
 
 

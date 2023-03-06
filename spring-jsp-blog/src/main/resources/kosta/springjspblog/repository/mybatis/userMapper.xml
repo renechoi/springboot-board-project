@@ -6,7 +6,7 @@
     <insert id="save" parameterType="User" useGeneratedKeys="true" keyProperty="userNo">
 
         <selectKey keyProperty="userNo" resultType="int" order="BEFORE">
-            SELECT MAX(userNo) + 1 FROM kostablog.users
+            SELECT IFNULL(MAX(userNo) + 1, 1) FROM kostablog.users
         </selectKey>
 
         insert into kostablog.users(userNo, id, userName, password, joinDate)
@@ -40,21 +40,3 @@
 
 </mapper>
 
-
-        <!--        &lt;!&ndash; 아이디로 회원정보 가져오기 &ndash;&gt;-->
-        <!--<select id="selectUserById" parameterType="string"  resultType="com.javaex.vo.UserVo">-->
-        <!--<![CDATA[-->
-        <!--select userNo, id, userName from users-->
-        <!--where id = #{id}-->
-        <!--]]>-->
-        <!--	</select>-->
-
-
-        <!--        &lt;!&ndash; id 로 usrNo 가져오기 &ndash;&gt;-->
-        <!--<select id="selectUserNoById" parameterType="string"  resultType="int">-->
-        <!--<![CDATA[-->
-        <!--select userNo-->
-        <!--from users-->
-        <!--where id = #{id}-->
-        <!--]]>-->
-        <!--	</select>-->
