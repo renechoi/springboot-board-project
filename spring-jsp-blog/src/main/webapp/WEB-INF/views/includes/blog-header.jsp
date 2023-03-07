@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 		<div id="header">
-			<h1><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}">${blogVo.blogTitle }</a></h1>
+			<h1><a href="${pageContext.request.contextPath}/blog/${blog.userId}">${blog.blogTitle }</a></h1>
 			<ul>
 				<c:choose>
 					<c:when test="${authUser == null }">
@@ -13,7 +13,7 @@
 						<!-- 로그인 후 메뉴 -->
 						<li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 
-						<c:if test="${blogVo.userId eq authUser.id }"><!-- 자신의 블로그일때만 관리 메뉴가 보인다. -->
+						<c:if test="${blog.userId eq authUser.id }"><!-- 자신의 블로그일때만 관리 메뉴가 보인다. -->
 							<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/basic">내블로그 관리</a></li>
 						</c:if>
 					</c:otherwise>

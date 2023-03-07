@@ -29,15 +29,15 @@
 	 		      	<table class="admin-config">
 			      		<tr>
 			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="blogTitle" value="${blogVo.blogTitle}"></td>
+			      			<td><input type="text" size="40" name="blogTitle" value="${blog.blogTitle}"></td>
 			      		</tr>
 			      		<tr>
 			      			<td class="t">로고이미지</td>
-			      			<c:if test="${blogVo.logoFile eq 'default'}">
+			      			<c:if test="${blog.logoFile eq 'default'}">
 			      				<td><img src="../webapp/assets/images/spring-logo.jpg"></td>
 			      			</c:if>
-			      			<c:if test="${blogVo.logoFile ne 'default'}">
-			      				<td><img src="${pageContext.request.contextPath}/upload/${blogVo.logoFile}"></td>
+			      			<c:if test="${blog.logoFile ne 'default'}">
+			      				<td><img src="${pageContext.request.contextPath}/upload/${blog.logoFile}"></td>
 			      			</c:if>
 			      			   			
 			      		</tr>      		

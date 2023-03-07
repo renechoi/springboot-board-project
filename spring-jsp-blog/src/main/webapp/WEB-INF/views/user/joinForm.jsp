@@ -48,11 +48,11 @@
 
 // 아이디체크 
 $("#btn-checkid").on("click", function(){
- 	var id = $("[name=id]").val();
+ 	let id = $("[name=id]").val();
  	$.ajax({
 		url : "${pageContext.request.contextPath }/user/idCheck",
 		type : "post",
-		data : {id: id},
+		data : {userId: id},
 		dataType : "json",
 		success : function(isExist) {
 			if(isExist == false){

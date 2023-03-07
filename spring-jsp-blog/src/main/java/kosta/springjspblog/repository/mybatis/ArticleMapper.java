@@ -10,7 +10,7 @@ import java.util.List;
 public interface ArticleMapper {
 
     int save(Article article);
-    List<Article> findAll(String userId, int crtCateNo);
+    List<Article> findAll(String userId, int categoryNo);
     Article findById(String id);
     Article findByObject(Article article);
 }

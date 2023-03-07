@@ -1,5 +1,7 @@
 package kosta.springjspblog.controller;
 
+import kosta.springjspblog.domain.Blog;
+import kosta.springjspblog.service.BlogService;
 import kosta.springjspblog.service.UserService;
 import kosta.springjspblog.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +19,7 @@ import java.io.PrintWriter;
 public class UserController {
 
 	private final UserService userService;
+	private final BlogService blogService;
 
 	@GetMapping(value = "/join")
 	public String joinForm() {
@@ -40,8 +43,11 @@ public class UserController {
 	@PostMapping(value = "/login")
 	public String login(@ModelAttribute User user, HttpSession session) {
 		User authUser = userService.login(user);
-		if (authUser != null) { //성공시
+		Blog blog = blogService.getBlog(user.getId());
+
+		if (authUser != null) {
 			session.setAttribute("authUser", authUser);
+			session.setAttribute("blog", blog);
 			return "redirect:/";
 		}
 		return "redirect:/user/login?result=fail";

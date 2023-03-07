@@ -25,8 +25,8 @@ public class ArticleRepository implements JBlogRepository<Article>{
         return null;
     }
 
-    public List<Article> findAll(String userId, int crtCateNo) {
-        return articleMapper.findAll(userId, crtCateNo);
+    public List<Article> findAll(String userId, int categoryNo) {
+        return articleMapper.findAll(userId, categoryNo);
     }
 
     @Override

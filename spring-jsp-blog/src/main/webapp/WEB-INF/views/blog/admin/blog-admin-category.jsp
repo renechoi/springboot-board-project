@@ -29,7 +29,6 @@
             <table class="admin-cat">
                 <thead>
                 <tr>
-                    <th>번호</th>
                     <th>카테고리명</th>
                     <th>포스트 수</th>
                     <th>설명</th>
@@ -42,7 +41,7 @@
             </table>
 
             <h4 class="n-c">새로운 카테고리 추가</h4>
-            <table id="admin-cat-add" data-userno="${blogVo.userId}">
+            <table id="admin-cat-add" data-userno="${blog.userId}">
                 <tr>
                     <td class="t">카테고리명</td>
                     <td><input type="text" name="name" value=""></td>
@@ -77,14 +76,14 @@
 
     //카테고리 등록
     $("#btnAddCate").on("click", function () {
-        var cateName = $("[name=name]").val();
-        var description = $("[name=desc]").val();
-        var userId = `${blogVo.userId}`;
+        let cateName = $("[name=name]").val();
+        let description = $("[name=desc]").val();
+        let userId = `${blog.userId}`;
         console.log(cateName);
         console.log(description);
         console.log(userId);
 
-        var category = {
+        let category = {
             categoryName: cateName,
             categoryDescription: description,
             userId: userId
@@ -111,9 +110,9 @@
 
     //카테고리 삭제
     $("#cateList").on("click", ".btn_cateDel", function () {
-        var $this = $(this)
-        var cateNo = $this.data("cateno");
-        var cnt = $this.data("cnt");
+        let $this = $(this)
+        let categoryNo = $this.data("categoryNo");
+        let cnt = $this.data("cnt");
         console.log(cnt);
         if (cnt > 0) {
             alert("삭제할 수 없습니다.")
@@ -121,7 +120,7 @@
             $.ajax({
                 url: "${pageContext.request.contextPath }/api/category/remove",
                 type: "post",
-                data: {cateNo: cateNo},
+                data: {categoryNo: categoryNo},
                 dataType: "json",
                 success: function (result) {
                     if (result == 1) {
@@ -146,10 +145,10 @@
             url: "${pageContext.request.contextPath }/api/category/list",
             type: "post",
             dataType: "json",
-            success: function (cateList) {
-                console.log(cateList)
-                for (var i = 0; i < cateList.length; i++) {
-                    render(cateList[i], "down");
+            success: function (categories) {
+                console.log(categories)
+                for (var i = 0; i < categories.length; i++) {
+                    render(categories[i], "down");
                 }
             },
             error: function (XHR, status, error) {
@@ -167,11 +166,11 @@
 
         var str = "" +
             "<tr>" +
-            "<td>" + category.categoryNo + "</td>" +
+            // "<td>" + category.categoryNo + "</td>" +
             "<td>" + category.categoryName + "</td>" +
             "<td>" + category.cnt + "</td>" +
             "<td>" + category.categoryDescription + "</td>" +
-            "<td><img class='btn_cateDel' data-cateno='" + category.categoryNo + "'  data-cnt='" + category.cnt + "'  src='${pageContext.request.contextPath}/assets/images/delete.jpg'></td>" +
+            "<td><img class='btn_cateDel' data-cateno='" + "'  data-cnt='" + category.cnt + "'  src='${pageContext.request.contextPath}/assets/images/delete.jpg'></td>" +
             "</tr>"
 
         console.log(str);

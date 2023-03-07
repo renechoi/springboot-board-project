@@ -42,8 +42,8 @@ public class BlogController {
         if (blog != null) { //성공시
 //            blog.setId(user.getId());
             blog.setUserId(user.getId());
-            session.setAttribute("blog", blog);
             Blog createdBlog = blogService.create(blog);
+            session.setAttribute("blog", blog);
             return "blog/blog-main";
         }
         return "redirect:/result=fail";
@@ -76,10 +76,10 @@ public class BlogController {
         log.info("article = {}", article);
         log.info("categories = {}", categories);
 
-        model.addAttribute("blogVo", blog);
-        model.addAttribute("cateList", categories);
-        model.addAttribute("postList", articles);
-        model.addAttribute("postVo", article);
+        model.addAttribute("blog", blog);
+        model.addAttribute("categories", categories);
+        model.addAttribute("articles", articles);
+        model.addAttribute("article", article);
         model.addAttribute("newLine", "\r\n");
         return "blog/blog-main";
     }
@@ -99,7 +99,7 @@ public class BlogController {
         if (isLoginAndProperUser(id, authUser)) {
             //블로그 기본정보 가져오기
             Blog blog = blogService.getBlog(id);
-            model.addAttribute("blogVo", blog);
+            model.addAttribute("blog", blog);
             return "blog/admin/blog-admin-basic";
 
         } else { //타인의 블로그 설정페이지로 진입 시도한 경우
@@ -137,8 +137,8 @@ public class BlogController {
             /*카테고리정보 가져오기*/
             List<Category> categories = categoryService.getCategories(blog.getUserId());
 
-            model.addAttribute("blogVo", blog);
-            model.addAttribute("cateList", categories);
+            model.addAttribute("blog", blog);
+            model.addAttribute("categories", categories);
             return "/blog/admin/blog-admin-category";
 
         } else { //타인의 블로그 설정페이지로 진입 시도한 경우
@@ -165,10 +165,10 @@ public class BlogController {
             Blog blog = blogService.getBlog(id);
 
             //카테고리 정보 가져오기 (셀렉트박스 출력용)
-            List<Category> cateList = categoryService.getCategories(blog.getUserId());
+            List<Category> categories = categoryService.getCategories(blog.getUserId());
 
-            model.addAttribute("blogVo", blog);
-            model.addAttribute("cateList", cateList);
+            model.addAttribute("blog", blog);
+            model.addAttribute("categories", categories);
             return "blog/admin/blog-admin-write";
 
         } else { //로그인 안했으면 로그인 페이지로

@@ -16,12 +16,19 @@
             <!-- 로그인 후 메뉴 -->
             <li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
 
-
-            <c:if test="${blog == null }"><!-- 자신의 블로그일때만 관리 메뉴가 보인다. -->
-                <li><a href="${pageContext.request.contextPath}/blog/${sessionScope.authUser.id }/create">블로그 만들기</a>
-                </li>
-            </c:if>
-            <li><a href="${pageContext.request.contextPath}/blog/${sessionScope.authUser.id }">내블로그</a></li>
+            <c:choose>
+                <c:when test="${blog == null }">
+                    <li><a href="${pageContext.request.contextPath}/blog/${sessionScope.authUser.id }/create">블로그 만들기</a>
+                </c:when>
+                <c:otherwise>
+                    <li><a href="${pageContext.request.contextPath}/blog/${sessionScope.authUser.id }">내블로그</a></li>
+                </c:otherwise>
+            </c:choose>
+            <%--            <c:if test="${blog == null }"><!-- 자신의 블로그일때만 관리 메뉴가 보인다. -->--%>
+            <%--                <li><a href="${pageContext.request.contextPath}/blog/${sessionScope.authUser.id }/create">블로그 만들기</a>--%>
+            <%--                </li>--%>
+            <%--            </c:if>--%>
+            <%--            <li><a href="${pageContext.request.contextPath}/blog/${sessionScope.authUser.id }">내블로그</a></li>--%>
 
 
             <%--            <c:choose>--%>

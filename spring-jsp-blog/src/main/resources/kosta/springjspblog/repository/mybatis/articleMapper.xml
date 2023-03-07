@@ -44,8 +44,8 @@
         kostablog.ARTICLE article
         WHERE category.categoryNo = article.categoryNo
         AND category.userId = #{userId}
-        <if test="crtCateNo != null and crtCateNo != 0">
-            AND article.categoryNo = #{crtCateNo}
+        <if test="categoryNo != null and categoryNo != 0">
+            AND article.categoryNo = #{categoryNo}
         </if>
         ORDER BY articleNo DESC
     </select>

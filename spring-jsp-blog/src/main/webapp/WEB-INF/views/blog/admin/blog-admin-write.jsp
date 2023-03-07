@@ -33,8 +33,8 @@
 			      			<td>
 			      				<input type="text" size="60" name="articleTitle">
 				      			<select name="categoryNo">
-				      				<c:forEach items="${cateList}" var="cateVo">
-				      					<option value="${cateVo.categoryNo}">${cateVo.categoryName}</option>
+				      				<c:forEach items="${categories}" var="category">
+				      					<option value="${category.categoryNo}">${category.categoryName}</option>
 				      				</c:forEach>
 				      				
 				      			</select>

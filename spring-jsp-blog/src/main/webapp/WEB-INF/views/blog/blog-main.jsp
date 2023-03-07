@@ -21,13 +21,13 @@
 		<div id="wrapper">
 			<div id="content">
 				<div class="blog-content">
-					<c:if test="${not empty postVo}">
-						<h4>${postVo.articleTitle}</h4>
+					<c:if test="${not empty article}">
+						<h4>${article.articleTitle}</h4>
 						<p>
-						${fn:replace(postVo.articleContent, newLine, "<br>") }
+						${fn:replace(article.articleContent, newLine, "<br>") }
 						<p>
 					</c:if>
-					<c:if test="${empty postVo}">
+					<c:if test="${empty article}">
 						<h4>등록된 글이 없습니다.</h4>
 						<p>
 						
@@ -35,10 +35,10 @@
 					</c:if>
 				</div>
 				<ul class="blog-list">
-					<c:forEach items="${postList}" var="postVo">
+					<c:forEach items="${articles}" var="article">
 						<li>
-							<a href="${pageContext.request.contextPath}/blog/${blogVo.userId}?categoryNo=${postVo.categoryNo}&postNo=${postVo.articleNo}">${postVo.articleTitle}</a>
-							<span>${postVo.regDate}</span>
+							<a href="${pageContext.request.contextPath}/blog/${blog.userId}?categoryNo=${article.categoryNo}&articleNo=${article.articleNo}">${article.articleTitle}</a>
+							<span>${article.regDate}</span>
 						</li>
 					</c:forEach>
 				</ul>
@@ -47,10 +47,10 @@
 
 		<div id="extra">
 			<div class="blog-logo">
-				<c:if test="${blogVo.logoFile eq 'default'}">
+				<c:if test="${blog.logoFile eq 'default'}">
 					<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
 				</c:if>
-				<c:if test="${blogVo.logoFile ne 'default'}">
+				<c:if test="${blog.logoFile ne 'default'}">
 					<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
 <%--					<img src="${pageContext.request.contextPath}/resources/upload/1678091707628636c81a3-3b82-434c-add7-97e46bcaca72.jpeg">--%>
 				</c:if>
@@ -58,10 +58,10 @@
 		</div>
 
 		<div id="navigation">
-			<h2><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}">카테고리</a></h2>
+			<h2><a href="${pageContext.request.contextPath}/blog/${blog.userId}">카테고리</a></h2>
 			<ul>
-				<c:forEach items="${cateList}" var="cateVo">
-					<li><a href="${pageContext.request.contextPath}/blog/${blogVo.userId}?categoryNo=${cateVo.categoryNo}">${cateVo.categoryName}</a></li>
+				<c:forEach items="${categories}" var="category">
+					<li><a href="${pageContext.request.contextPath}/blog/${blog.userId}?categoryNo=${category.categoryNo}">${category.categoryName}</a></li>
 				</c:forEach>
 			</ul>
 		</div>
