@@ -1,7 +1,7 @@
-package kosta.springjspblog.repository;
+package kosta.springjspblog.domain.repository;
 
-import kosta.springjspblog.repository.mybatis.UserMapper;
-import kosta.springjspblog.domain.User;
+import kosta.springjspblog.domain.repository.mybatis.UserMapper;
+import kosta.springjspblog.domain.dto.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 

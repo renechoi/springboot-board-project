@@ -1,4 +1,4 @@
-package kosta.springjspblog.domain;
+package kosta.springjspblog.domain.dto;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;

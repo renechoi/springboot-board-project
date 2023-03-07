@@ -1,10 +1,9 @@
-package kosta.springjspblog.service;
+package kosta.springjspblog.domain.service;
 
 import java.util.List;
 
-import kosta.springjspblog.domain.Category;
-import kosta.springjspblog.domain.User;
-import kosta.springjspblog.repository.CategoryRepository;
+import kosta.springjspblog.domain.dto.Category;
+import kosta.springjspblog.domain.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

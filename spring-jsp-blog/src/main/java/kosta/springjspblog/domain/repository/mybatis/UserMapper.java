@@ -1,6 +1,6 @@
-package kosta.springjspblog.repository.mybatis;
+package kosta.springjspblog.domain.repository.mybatis;
 
-import kosta.springjspblog.domain.User;
+import kosta.springjspblog.domain.dto.User;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,9 +1,9 @@
-package kosta.springjspblog.api;
+package kosta.springjspblog.web.api;
 
 
-import kosta.springjspblog.domain.Category;
-import kosta.springjspblog.domain.User;
-import kosta.springjspblog.service.CategoryService;
+import kosta.springjspblog.domain.dto.Category;
+import kosta.springjspblog.domain.dto.User;
+import kosta.springjspblog.domain.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

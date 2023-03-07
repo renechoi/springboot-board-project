@@ -1,4 +1,4 @@
-package kosta.springjspblog.repository;
+package kosta.springjspblog.domain.repository;
 
 import java.util.List;
 

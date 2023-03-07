@@ -1,17 +1,17 @@
-package kosta.springjspblog.controller;
+package kosta.springjspblog.web.controller;
 
-import kosta.springjspblog.domain.Article;
-import kosta.springjspblog.domain.Blog;
-import kosta.springjspblog.domain.Category;
-import kosta.springjspblog.domain.User;
-import kosta.springjspblog.service.ArticleService;
-import kosta.springjspblog.service.BlogService;
+import kosta.springjspblog.domain.dto.Article;
+import kosta.springjspblog.domain.dto.Blog;
+import kosta.springjspblog.domain.dto.Category;
+import kosta.springjspblog.domain.dto.User;
+import kosta.springjspblog.domain.service.ArticleService;
+import kosta.springjspblog.domain.service.BlogService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import kosta.springjspblog.service.CategoryService;
+import kosta.springjspblog.domain.service.CategoryService;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
@@ -25,9 +25,7 @@ import java.util.Optional;
 public class BlogController {
 
     private final BlogService blogService;
-
     private final CategoryService categoryService;
-    //
     private final ArticleService articleService;
 
     @GetMapping(value = "/{id}/create")
@@ -40,7 +38,6 @@ public class BlogController {
         User user = (User) session.getAttribute("authUser");
 
         if (blog != null) { //성공시
-//            blog.setId(user.getId());
             blog.setUserId(user.getId());
             Blog createdBlog = blogService.create(blog);
             session.setAttribute("blog", blog);
@@ -55,9 +52,6 @@ public class BlogController {
                          @RequestParam(value = "articleNo", defaultValue = "0") int articleNo,
                          HttpSession session, Model model) {
 
-        System.out.println("BlogController.myBlog");
-
-
         Blog blog = blogService.getBlog(id);
         String userId = blog.getUserId();
         List<Category> categories = categoryService.getCategories(userId);
@@ -69,8 +63,6 @@ public class BlogController {
         }
 
         Article article = articleService.getArticle(articleNo);
-
-        System.out.println("article = " + article);
 
         log.info("blog = {}", blog);
         log.info("article = {}", article);
@@ -94,8 +86,6 @@ public class BlogController {
 
         User authUser = (User) session.getAttribute("authUser");
 
-        System.out.println("authUser = " + authUser);
-        //로그인했고 자신의 블로그이면 진행
         if (isLoginAndProperUser(id, authUser)) {
             //블로그 기본정보 가져오기
             Blog blog = blogService.getBlog(id);
@@ -103,7 +93,6 @@ public class BlogController {
             return "blog/admin/blog-admin-basic";
 
         } else { //타인의 블로그 설정페이지로 진입 시도한 경우
-
             return "error/403";
         }
     }
@@ -113,7 +102,7 @@ public class BlogController {
     public String blogAdminBasicModify(@ModelAttribute Blog blog, HttpSession session, Model model) {
 
         User authUser = (User) session.getAttribute("authUser");
-        //로그인했고 자신의 블로그이면 진행
+
         if (isLoginAndProperUser(authUser.getId(), authUser)) {
             blog.setUserId(authUser.getId());
 
@@ -129,12 +118,9 @@ public class BlogController {
     public String blogAdminCate(@PathVariable("id") String id, HttpSession session, Model model) {
         User authUser = (User) session.getAttribute("authUser");
 
-        //로그인했고 자신의 블로그이면 진행
         if (isLoginAndProperUser(id, authUser)) {
-            //블로그 기본정보 가져오기
             Blog blog = blogService.getBlog(id);
 
-            /*카테고리정보 가져오기*/
             List<Category> categories = categoryService.getCategories(blog.getUserId());
 
             model.addAttribute("blog", blog);
@@ -150,21 +136,14 @@ public class BlogController {
         return authUser != null && id.equals(authUser.getId());
     }
 
-
     /*개인블로그 글쓰기설정페이지 출력*/
     @GetMapping(value = "/{id}/admin/write")
     public String blogAdminWrite(@PathVariable("id") String id, HttpSession session, Model model) {
         User authUser = (User) session.getAttribute("authUser");
-        System.out.println(authUser);
-        System.out.println("id : " + id);
-        System.out.println("authUser.getId() : " + authUser.getId());
 
-        //로그인했고 자신의 블로그이면 진행
         if (isLoginAndProperUser(id, authUser)) {
-            //블로그 기본정보 가져오기
             Blog blog = blogService.getBlog(id);
 
-            //카테고리 정보 가져오기 (셀렉트박스 출력용)
             List<Category> categories = categoryService.getCategories(blog.getUserId());
 
             model.addAttribute("blog", blog);
@@ -181,24 +160,16 @@ public class BlogController {
     @PostMapping(value = "/{id}/admin/write")
     public String blogAdminWritePost(@PathVariable("id") String id, @ModelAttribute Article article, HttpSession session, Model model) {
         User authUser = (User) session.getAttribute("authUser");
-        System.out.println(authUser);
-        System.out.println("id : " + id);
-        System.out.println("authUser.getId() : " + authUser.getId());
 
         log.info("article = {} ", article);
 
-        //로그인했고 자신의 블로그이면 진행
         if (isLoginAndProperUser(id, authUser)) {
-            //포스트 글저장
             articleService.Write(article);
         } else { //로그인 안했으면 로그인 페이지로
             return "error/403";
         }
-        //return "error/403";
-        //return "redirect:/blog/blog-main";
 
         return "redirect:/" + "blog/" + id;
     }
-
 
 }

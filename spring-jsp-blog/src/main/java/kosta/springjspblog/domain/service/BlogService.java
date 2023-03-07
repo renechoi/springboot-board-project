@@ -1,11 +1,10 @@
-package kosta.springjspblog.service;
+package kosta.springjspblog.domain.service;
 
-import kosta.springjspblog.domain.Blog;
-import kosta.springjspblog.domain.UploadFile;
-import kosta.springjspblog.repository.BlogRepository;
+import kosta.springjspblog.domain.dto.Blog;
+import kosta.springjspblog.domain.dto.UploadFile;
+import kosta.springjspblog.domain.repository.BlogRepository;
 import kosta.springjspblog.util.FileUtil;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 

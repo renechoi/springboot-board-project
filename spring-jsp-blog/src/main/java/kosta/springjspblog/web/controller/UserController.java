@@ -1,17 +1,14 @@
-package kosta.springjspblog.controller;
+package kosta.springjspblog.web.controller;
 
-import kosta.springjspblog.domain.Blog;
-import kosta.springjspblog.service.BlogService;
-import kosta.springjspblog.service.UserService;
-import kosta.springjspblog.domain.User;
+import kosta.springjspblog.domain.dto.Blog;
+import kosta.springjspblog.domain.service.BlogService;
+import kosta.springjspblog.domain.service.UserService;
+import kosta.springjspblog.domain.dto.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.PrintWriter;
 
 @Controller
 @RequestMapping(value = "/user")

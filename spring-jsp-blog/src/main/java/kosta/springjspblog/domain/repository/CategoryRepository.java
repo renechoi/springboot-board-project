@@ -1,12 +1,10 @@
-package kosta.springjspblog.repository;
+package kosta.springjspblog.domain.repository;
 
-import kosta.springjspblog.repository.mybatis.CategoryMapper;
-import kosta.springjspblog.repository.mybatis.UserMapper;
-import kosta.springjspblog.domain.Category;
+import kosta.springjspblog.domain.repository.mybatis.CategoryMapper;
+import kosta.springjspblog.domain.dto.Category;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.Arrays;
 import java.util.List;
 
 @Repository

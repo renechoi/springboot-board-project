@@ -1,6 +1,6 @@
 package kosta.springjspblog.util;
 
-import kosta.springjspblog.domain.UploadFile;
+import kosta.springjspblog.domain.dto.UploadFile;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.BufferedOutputStream;

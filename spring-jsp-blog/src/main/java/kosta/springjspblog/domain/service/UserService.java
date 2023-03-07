@@ -1,14 +1,11 @@
-package kosta.springjspblog.service;
+package kosta.springjspblog.domain.service;
 
-import kosta.springjspblog.repository.BlogRepository;
-import kosta.springjspblog.repository.CategoryRepository;
-import kosta.springjspblog.repository.UserRepository;
-import kosta.springjspblog.domain.Blog;
-import kosta.springjspblog.domain.Category;
-import kosta.springjspblog.domain.User;
+import kosta.springjspblog.domain.repository.BlogRepository;
+import kosta.springjspblog.domain.repository.CategoryRepository;
+import kosta.springjspblog.domain.repository.UserRepository;
+import kosta.springjspblog.domain.dto.User;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
