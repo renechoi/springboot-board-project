@@ -41,7 +41,6 @@ public class BlogRepository implements JBlogRepository<Blog> {
 
 
     @Override
-    public Blog delete() {
-        return null;
+    public void delete(Blog blog) {
     }
 }

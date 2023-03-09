@@ -38,5 +38,11 @@
     </select>
 
 
+    <delete id="delete" parameterType="User">
+        delete from kostablog.users
+               where id = #{id}
+    </delete>
+
+
 </mapper>
 

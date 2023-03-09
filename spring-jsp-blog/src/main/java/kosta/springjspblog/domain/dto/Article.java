@@ -13,4 +13,12 @@ public class Article {
 	private String articleContent;
 	private String regDate;
 
+
+
+
+
+
 }
+
+
+

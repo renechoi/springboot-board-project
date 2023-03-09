@@ -44,7 +44,6 @@ public class ArticleRepository implements JBlogRepository<Article>{
     }
 
     @Override
-    public Article delete() {
-        return null;
+    public void delete(Article article) {
     }
 }

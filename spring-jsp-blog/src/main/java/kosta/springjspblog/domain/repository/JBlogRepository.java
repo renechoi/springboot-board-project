@@ -8,5 +8,5 @@ public interface JBlogRepository<T> {
     T findById(String id);
     T findByObject(T t);
     T update(T t);
-    T delete();
+    void delete(T t);
 }

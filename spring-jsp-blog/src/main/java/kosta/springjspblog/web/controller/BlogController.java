@@ -40,7 +40,12 @@ public class BlogController {
         if (blog != null) { //성공시
             blog.setUserId(user.getId());
             Blog createdBlog = blogService.create(blog);
-            session.setAttribute("blog", blog);
+            createdBlog.setUserId(user.getId());
+            session.setAttribute("blog", createdBlog);
+
+            System.out.println("blog = " + createdBlog);
+            System.out.println("user = " + user);
+
             return "blog/blog-main";
         }
         return "redirect:/result=fail";

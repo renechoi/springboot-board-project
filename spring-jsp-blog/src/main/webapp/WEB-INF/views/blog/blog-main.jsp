@@ -20,6 +20,8 @@
 		
 		<div id="wrapper">
 			<div id="content">
+
+
 				<div class="blog-content">
 					<c:if test="${not empty article}">
 						<h4>${article.articleTitle}</h4>

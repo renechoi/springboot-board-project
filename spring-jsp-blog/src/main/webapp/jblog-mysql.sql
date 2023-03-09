@@ -43,6 +43,13 @@ CREATE TABLE users (
                        PRIMARY KEY(userNo)
 );
 
+
+
+
+
+
+
+
 CREATE TABLE blog (
                       userId        VARCHAR(50),
                       blogTitle VARCHAR(200)   NOT NULL,
@@ -52,13 +59,9 @@ CREATE TABLE blog (
                           REFERENCES users(id)
 );
 
-drop table blog;
 
-drop table category;
 
-DROP TABLE article
 
-drop table comments
 
 
 CREATE TABLE category (
@@ -96,6 +99,28 @@ CREATE TABLE comments (
                           CONSTRAINT c_comment_fk FOREIGN KEY (articleNo)
                               REFERENCES article(articleNo)
 );
+
+
+
+
+
+drop table blog;
+drop table category;
+DROP TABLE article;
+drop table comments;
+
+ALTER TABLE blog DROP FOREIGN KEY c_blog_fk;
+ALTER TABLE blog ADD CONSTRAINT FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE;
+
+ALTER TABLE category DROP FOREIGN KEY c_category_fk;
+ALTER TABLE category ADD CONSTRAINT FOREIGN KEY (userId) REFERENCES blog(userId) ON DELETE CASCADE;
+
+ALTER TABLE article DROP FOREIGN KEY c_post_fk;
+ALTER TABLE article ADD CONSTRAINT FOREIGN KEY (categoryNo) REFERENCES category(categoryNo) ON DELETE CASCADE;
+
+ALTER TABLE comments DROP FOREIGN KEY c_comment_fk;
+ALTER TABLE comments ADD CONSTRAINT FOREIGN KEY (articleNo) REFERENCES article(articleNo) ON DELETE CASCADE;
+
 
 
 #

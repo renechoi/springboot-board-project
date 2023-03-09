@@ -25,36 +25,25 @@
 					<li><a href="${pageContext.request.contextPath}/blog/${authUser.id}/admin/write">글작성</a></li>
 					<li><a href="/user/${authUser.id}/unregister">회원탈퇴</a></li>
 				</ul>
-				
-				<form action="${pageContext.request.contextPath}/blog/${authUser.id}/admin/basicModify" method="post" enctype="multipart/form-data">
-	 		      	<table class="admin-config">
-			      		<tr>
-			      			<td class="t">블로그 제목</td>
-			      			<td><input type="text" size="40" name="blogTitle" value="${blog.blogTitle}"></td>
-			      		</tr>
-			      		<tr>
-			      			<td class="t">로고이미지</td>
-			      			<c:if test="${blog.logoFile eq 'default'}">
-			      				<td><img src="../webapp/assets/images/spring-logo.jpg"></td>
-			      			</c:if>
-			      			<c:if test="${blog.logoFile ne 'default'}">
-			      				<td><img src="${pageContext.request.contextPath}/upload/${blog.logoFile}"></td>
-			      			</c:if>
-			      			   			
-			      		</tr>      		
-			      		<tr>
-			      			<td class="t">&nbsp;</td>
-			      			<td><input type="file" name="file"></td>      			
-			      		</tr>           		
-			      		<tr>
-			      			<td class="t">&nbsp;</td>
-			      			<td class="s"><input type="submit" value="기본설정 변경"></td>      			
-			      		</tr>           		
-			      	</table>
+
+
+				<form class="unregister-form" action="/user/${authUser.id}/unregister" method="post">
+
+					<label class="block-label" for="id">아이디</label>
+					<input type="text" name="id"  value="" />
+
+					<label class="block-label" for="password">패스워드</label>
+					<input type="password" name="password"  value="" />
+
+					<input type="submit" value="탈퇴하기">
 				</form>
+
+
+
 			</div>
 		</div>
-		
+
+
 		
 		<!-- 푸터-->
 		<c:import url="/WEB-INF/views/includes/blog-footer.jsp"></c:import>

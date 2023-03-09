@@ -25,37 +25,31 @@ public class UserService {
     /*회원가입: 회원정보, 블로그기본정보, 카테고리기본정보가 저장되어야함*/
     @Transactional
     public void join(User user, HttpSession session) {
-        //회원정보 저장
-        User savedUser = userRepository.save(user);// 키값 필요
-		int userNo = savedUser.getUserNo();
+        User savedUser = userRepository.save(user);
+        int userNo = savedUser.getUserNo();
 
         log.info("savedUser userNo ={}", userNo);
-		//블로그 초기값 저장(개설)
-//		Blog blog = new Blog();
-//		blog.setUserNo(userNo);
-//		blog.setBlogTitle(user.getUserName() +"의 블로그입니다.");
-//		blog.setLogoFile("default");
-//        session.setAttribute("blog", blog);
-//
-//		blogRepository.save(blog);
-//
-//		//카테고리 초기값 저장
-//		Category category = new Category();
-//		category.setCateName("미분류");
-//		category.setDescription("기본으로 만들어지는 카테고리 입니다.");
-//		category.setUserNo(userNo);
-//
-//		categoryRepository.save(category);
     }
 
     public boolean idCheck(String id) {
         boolean isExist;
         User user = userRepository.findById(id);
-        isExist = user != null; // 존재하는 경우 true 값 리턴
+        isExist = user != null;
         return isExist;
     }
 
     public User login(User user) {
         return userRepository.findByObject(user);
+    }
+
+    public void unRegister(User user, HttpSession session) {
+        User authUser = (User) session.getAttribute("authUser");
+
+        if (!authUser.equals(user)){
+            throw new IllegalArgumentException("not authorized user");
+        }
+
+        userRepository.delete(user);
+        session.removeAttribute("authUser");
     }
 }

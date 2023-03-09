@@ -5,11 +5,13 @@ import kosta.springjspblog.domain.service.BlogService;
 import kosta.springjspblog.domain.service.UserService;
 import kosta.springjspblog.domain.dto.User;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
+@Slf4j
 @Controller
 @RequestMapping(value = "/user")
 @RequiredArgsConstructor
@@ -62,6 +64,18 @@ public class UserController {
 	@PostMapping(value = "/idCheck")
 	public boolean cateList(String id) {
 		return userService.idCheck(id);
+	}
+
+	@GetMapping(value = "/{id}/unregister")
+	public String unRegisterForm() {
+		return "blog/admin/blog-admin-unregister";
+	}
+
+	@PostMapping(value = "/{id}/unregister")
+	public String unRegister(@ModelAttribute User user, HttpSession session) {
+		userService.unRegister(user, session);
+
+		return "redirect:/";
 	}
 
 }

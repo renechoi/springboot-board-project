@@ -45,8 +45,7 @@ public class CategoryRepository implements JBlogRepository<Category> {
     }
 
     @Override
-    public Category delete() {
-        return null;
+    public void delete(Category category) {
     }
 
     public Category delete(int categoryNo) {
