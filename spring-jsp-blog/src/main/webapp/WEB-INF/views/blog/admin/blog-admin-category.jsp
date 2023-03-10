@@ -108,8 +108,10 @@
     });
 
 
-    //카테고리 삭제
-    $("#cateList").on("click", ".btn_cateDel", function () {
+    //카테고리 삭제 })
+    // id='category-delete'
+    $("#category_delete").on("click", ".btn_cateDel", function () {
+        console.log("삭제")
         let $this = $(this)
         let categoryNo = $this.data("categoryNo");
         let cnt = $this.data("cnt");
@@ -170,7 +172,7 @@
             "<td>" + category.categoryName + "</td>" +
             "<td>" + category.cnt + "</td>" +
             "<td>" + category.categoryDescription + "</td>" +
-            "<td><img id ='cateList' class='btn_cateDel' data-cateno='" + "'  data-cnt='" + category.cnt + "'  src='${pageContext.request.contextPath}/assets/images/delete.jpg'></td>" +
+            "<td><img style ='cursor:pointer;' id = 'category_delete' class='btn_cateDel' data-cnt=' " + category.cnt + "'  src='${pageContext.request.contextPath}/assets/images/delete.jpg'></td>" +
             "</tr>"
 
         console.log(str);

@@ -38,7 +38,7 @@
 			      				<td><img src="../webapp/assets/images/spring-logo.jpg"></td>
 			      			</c:if>
 			      			<c:if test="${blog.logoFile ne 'default'}">
-			      				<td><img src="${pageContext.request.contextPath}/upload/${blog.logoFile}"></td>
+			      				<td><img src="/upload/${blog.logoFile}"></td>
 			      			</c:if>
 			      			   			
 			      		</tr>      		

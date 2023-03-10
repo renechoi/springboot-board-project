@@ -53,7 +53,7 @@
 					<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
 				</c:if>
 				<c:if test="${blog.logoFile ne 'default'}">
-					<img src="${pageContext.request.contextPath}/assets/images/spring-logo.jpg">
+					<img src="${pageContext.request.contextPath}/upload/${blog.logoFile}">
 <%--					<img src="${pageContext.request.contextPath}/resources/upload/1678091707628636c81a3-3b82-434c-add7-97e46bcaca72.jpeg">--%>
 				</c:if>
 			</div>

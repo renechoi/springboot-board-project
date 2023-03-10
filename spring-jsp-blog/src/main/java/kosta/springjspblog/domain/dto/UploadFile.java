@@ -1,6 +1,9 @@
 package kosta.springjspblog.domain.dto;
 
 
+import lombok.Data;
+
+@Data
 public class UploadFile {
 	
 	private  String orgName;
@@ -9,52 +12,20 @@ public class UploadFile {
 	private  String filePath;
 	private  long fileSize;
 
+	private String uploadFileName;
+	private String storeFileName;
+
+
+	public UploadFile(String uploadFileName, String storeFileName) {
+		this.uploadFileName = uploadFileName;
+		this.storeFileName = storeFileName;
+	}
+
 	public UploadFile(String orgName, String exName, String saveName, String filePath, long fileSize) {
 		this.orgName = orgName;
 		this.exName = exName;
 		this.saveName = saveName;
 		this.filePath = filePath;
-		this.fileSize = fileSize;
-	}
-
-	public String getOrgName() {
-		return orgName;
-	}
-
-	public String getExName() {
-		return exName;
-	}
-
-	public String getSaveName() {
-		return saveName;
-	}
-
-	public String getFilePath() {
-		return filePath;
-	}
-
-	public long getFileSize() {
-		return fileSize;
-	}
-
-
-	public void setOrgName(String orgName) {
-		this.orgName = orgName;
-	}
-
-	public void setExName(String exName) {
-		this.exName = exName;
-	}
-
-	public void setSaveName(String saveName) {
-		this.saveName = saveName;
-	}
-
-	public void setFilePath(String filePath) {
-		this.filePath = filePath;
-	}
-
-	public void setFileSize(long fileSize) {
 		this.fileSize = fileSize;
 	}
 }

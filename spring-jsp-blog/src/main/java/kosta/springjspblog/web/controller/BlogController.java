@@ -12,8 +12,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import kosta.springjspblog.domain.service.CategoryService;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
@@ -104,7 +108,7 @@ public class BlogController {
 
     /*개인블로그 기본설정페이지 수정*/
     @PostMapping(value = "/{id}/admin/basicModify")
-    public String blogAdminBasicModify(@ModelAttribute Blog blog, HttpSession session, Model model) {
+    public String blogAdminBasicModify(@ModelAttribute Blog blog, HttpSession session, Model model) throws IOException {
 
         User authUser = (User) session.getAttribute("authUser");
 
@@ -176,5 +180,11 @@ public class BlogController {
 
         return "redirect:/" + "blog/" + id;
     }
+
+
+
+
+
+
 
 }

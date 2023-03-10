@@ -1,12 +1,12 @@
 package kosta.springjspblog.util;
 
 import kosta.springjspblog.domain.dto.UploadFile;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.BufferedOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import javax.servlet.http.HttpServletRequest;
+import java.io.*;
 import java.util.UUID;
 
 public class FileUtil {
@@ -52,4 +52,11 @@ public class FileUtil {
 		
 
 	}
+
+
+
+
+
+
+
 }
