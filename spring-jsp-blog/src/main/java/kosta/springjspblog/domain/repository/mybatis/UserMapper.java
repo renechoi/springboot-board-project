@@ -13,4 +13,5 @@ public interface UserMapper {
     User findById(String id);
     User findByObject(User user);
     void delete(User user);
+
 }

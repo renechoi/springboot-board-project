@@ -12,4 +12,6 @@ public interface CategoryMapper {
     List<Category> findAll(String userId);
     Category findById(String id);
     Category findByObject(Category category);
+    int delete(Category category);
+
 }

@@ -1,4 +1,4 @@
-package kosta.springjspblog.util;
+package kosta.springjspblog.domain.file;
 
 
 import kosta.springjspblog.domain.dto.UploadFile;
@@ -8,8 +8,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 

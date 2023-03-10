@@ -108,37 +108,7 @@
     });
 
 
-    //카테고리 삭제 })
-    // id='category-delete'
-    $("#category_delete").on("click", ".btn_cateDel", function () {
-        console.log("삭제")
-        let $this = $(this)
-        let categoryNo = $this.data("categoryNo");
-        let cnt = $this.data("cnt");
-        console.log(cnt);
-        if (cnt > 0) {
-            alert("삭제할 수 없습니다.")
-        } else {
-            $.ajax({
-                url: "${pageContext.request.contextPath }/api/category/remove",
-                type: "post",
-                data: {categoryNo: categoryNo},
-                dataType: "json",
-                success: function (result) {
-                    if (result == 1) {
-                        $this.parents("tr").remove();
-                    } else {
-                        console.log("삭제실패");
-                    }
-                },
-                error: function (XHR, status, error) {
-                    console.error(status + " : " + error);
-                }
-            });
-        }
 
-
-    });
 
 
     function fetchList() {
@@ -172,7 +142,7 @@
             "<td>" + category.categoryName + "</td>" +
             "<td>" + category.cnt + "</td>" +
             "<td>" + category.categoryDescription + "</td>" +
-            "<td><img style ='cursor:pointer;' id = 'category_delete' class='btn_cateDel' data-cnt=' " + category.cnt + "'  src='${pageContext.request.contextPath}/assets/images/delete.jpg'></td>" +
+            "<td><a href='javascript:categoryDelete()' id = 'category_delete' class='btn_cateDel'><img style ='cursor:pointer;' category-no= '" + category.categoryNo + "'data-cnt='" + category.cnt + "' src='${pageContext.request.contextPath}/assets/images/delete.jpg'></a></td>" +
             "</tr>"
 
         console.log(str);
@@ -185,6 +155,70 @@
             console.log("updown 오류")
         }
     }
+
+    function categoryDelete(){
+        console.log("삭제")
+        let $this = $(this);
+        console.log($this);
+        let categoryNo = $this.data("category-no");
+        let cnt = $this.data("data-cnt");
+
+        console.log(categoryNo);
+        console.log(cnt);
+        if (cnt > 0) {
+            alert("삭제할 수 없습니다.")
+        } else {
+            $.ajax({
+                url: "${pageContext.request.contextPath }/api/category/remove",
+                type: "post",
+                data: {categoryNo: categoryNo},
+                dataType: "json",
+                success: function (result) {
+                    if (result == 1) {
+                        $this.parents("tr").remove();
+                    } else {
+                        console.log("삭제실패");
+                    }
+                },
+                error: function (XHR, status, error) {
+                    console.error(status + " : " + error);
+                }
+            });
+        }
+    }
+
+
+    <%--//카테고리 삭제 })--%>
+    <%--// id='category-delete'--%>
+    <%--$("#category_delete").on("click", function () {--%>
+    <%--    console.log("삭제")--%>
+    <%--    let $this = $(this)--%>
+    <%--    let categoryNo = $this.data("categoryNo");--%>
+    <%--    let cnt = $this.data("cnt");--%>
+    <%--    console.log(cnt);--%>
+    <%--    if (cnt > 0) {--%>
+    <%--        alert("삭제할 수 없습니다.")--%>
+    <%--    } else {--%>
+    <%--        $.ajax({--%>
+    <%--            url: "${pageContext.request.contextPath }/api/category/remove",--%>
+    <%--            type: "post",--%>
+    <%--            data: {categoryNo: categoryNo},--%>
+    <%--            dataType: "json",--%>
+    <%--            success: function (result) {--%>
+    <%--                if (result == 1) {--%>
+    <%--                    $this.parents("tr").remove();--%>
+    <%--                } else {--%>
+    <%--                    console.log("삭제실패");--%>
+    <%--                }--%>
+    <%--            },--%>
+    <%--            error: function (XHR, status, error) {--%>
+    <%--                console.error(status + " : " + error);--%>
+    <%--            }--%>
+    <%--        });--%>
+    <%--    }--%>
+
+
+    // })};
 
 
 </script>

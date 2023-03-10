@@ -13,5 +13,6 @@ public class MainController {
 	@GetMapping(value="/")
 	public String main(Model model) {
 		return "main/index";
+//		return "resources/templates/main/index.html";
 	}
 }

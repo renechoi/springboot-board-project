@@ -42,6 +42,12 @@
     </select>
 
 
+    <delete id="delete" parameterType="Category">
+        delete from kostablog.category
+        where categoryNo = #{categoryNo}
+    </delete>
+
+
 
 </mapper>
 
