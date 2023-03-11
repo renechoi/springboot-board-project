@@ -37,15 +37,9 @@ public class CategoryController {
         return categoryService.add(category);
     }
 
-    /*카테고리 삭제*/
     @ResponseBody
     @PostMapping(value = "/remove")
-    public int categoryRemove(@RequestParam("categoryNo") int categoryNo) {
-        System.out.println("CategoryController.cateAdd");
-        int result = categoryService.delete(categoryNo);
-        System.out.println("result = " + result);
-        return result;
+    public int categoryRemove(@ModelAttribute Category category) {
+        return categoryService.delete(category);
     }
-
-
 }

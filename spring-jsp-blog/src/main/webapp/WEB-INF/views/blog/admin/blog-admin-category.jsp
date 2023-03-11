@@ -74,7 +74,6 @@
     });
 
 
-    //카테고리 등록
     $("#btnAddCate").on("click", function () {
         let cateName = $("[name=name]").val();
         let description = $("[name=desc]").val();
@@ -98,7 +97,6 @@
                 render(category, "up");
                 $("[name=name]").val("");
                 $("[name=desc]").val("");
-
             },
             error: function (XHR, status, error) {
                 console.error(status + " : " + error);
@@ -112,14 +110,12 @@
 
 
     function fetchList() {
-
         $.ajax({
             url: "${pageContext.request.contextPath }/api/category/list",
             type: "post",
             dataType: "json",
             success: function (categories) {
-                console.log(categories)
-                for (var i = 0; i < categories.length; i++) {
+                for (let i = 0; i < categories.length; i++) {
                     render(categories[i], "down");
                 }
             },
@@ -131,21 +127,15 @@
     }
 
 
-    /* 게시물을 화면에 표현합니다. */
     function render(category, updown) {
-
-        console.log(category)
-
         var str = "" +
             "<tr>" +
             // "<td>" + category.categoryNo + "</td>" +
             "<td>" + category.categoryName + "</td>" +
             "<td>" + category.cnt + "</td>" +
             "<td>" + category.categoryDescription + "</td>" +
-            "<td><a href='javascript:categoryDelete()' id = 'category_delete' class='btn_cateDel'><img style ='cursor:pointer;' category-no= '" + category.categoryNo + "'data-cnt='" + category.cnt + "' src='${pageContext.request.contextPath}/assets/images/delete.jpg'></a></td>" +
+            "<td><a href='javascript:categoryDelete()' id = 'category_delete' class='btn_cateDel' categoryNo= '" + category.categoryNo + "'  cnt= '" + category.cnt + "' ><img style ='cursor:pointer;' src='${pageContext.request.contextPath}/assets/images/delete.jpg'></a></td>" +
             "</tr>"
-
-        console.log(str);
 
         if (updown == "up") {
             $("#cateList").prepend(str);
@@ -157,12 +147,8 @@
     }
 
     function categoryDelete(){
-        console.log("삭제")
-        let $this = $(this);
-        console.log($this);
-        let categoryNo = $this.data("category-no");
-        let cnt = $this.data("data-cnt");
-
+        let categoryNo = $('#category_delete').attr("categoryNo");
+        let cnt = $('#category_delete').attr("cnt");
         console.log(categoryNo);
         console.log(cnt);
         if (cnt > 0) {
@@ -175,9 +161,7 @@
                 dataType: "json",
                 success: function (result) {
                     if (result == 1) {
-                        $this.parents("tr").remove();
-                    } else {
-                        console.log("삭제실패");
+                        $('#category_delete').parents("tr").remove();
                     }
                 },
                 error: function (XHR, status, error) {
@@ -186,39 +170,6 @@
             });
         }
     }
-
-
-    <%--//카테고리 삭제 })--%>
-    <%--// id='category-delete'--%>
-    <%--$("#category_delete").on("click", function () {--%>
-    <%--    console.log("삭제")--%>
-    <%--    let $this = $(this)--%>
-    <%--    let categoryNo = $this.data("categoryNo");--%>
-    <%--    let cnt = $this.data("cnt");--%>
-    <%--    console.log(cnt);--%>
-    <%--    if (cnt > 0) {--%>
-    <%--        alert("삭제할 수 없습니다.")--%>
-    <%--    } else {--%>
-    <%--        $.ajax({--%>
-    <%--            url: "${pageContext.request.contextPath }/api/category/remove",--%>
-    <%--            type: "post",--%>
-    <%--            data: {categoryNo: categoryNo},--%>
-    <%--            dataType: "json",--%>
-    <%--            success: function (result) {--%>
-    <%--                if (result == 1) {--%>
-    <%--                    $this.parents("tr").remove();--%>
-    <%--                } else {--%>
-    <%--                    console.log("삭제실패");--%>
-    <%--                }--%>
-    <%--            },--%>
-    <%--            error: function (XHR, status, error) {--%>
-    <%--                console.error(status + " : " + error);--%>
-    <%--            }--%>
-    <%--        });--%>
-    <%--    }--%>
-
-
-    // })};
 
 
 </script>

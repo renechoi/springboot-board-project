@@ -39,8 +39,8 @@ public class UserRepository implements JBlogRepository<User> {
     }
 
     @Override
-    public void delete(User user) {
-        userMapper.delete(user);
+    public int delete(User user) {
+        return userMapper.delete(user);
     }
 
 

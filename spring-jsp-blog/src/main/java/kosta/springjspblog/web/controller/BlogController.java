@@ -136,7 +136,7 @@ public class BlogController {
             model.addAttribute("categories", categories);
             return "/blog/admin/blog-admin-category";
 
-        } else { //타인의 블로그 설정페이지로 진입 시도한 경우
+        } else {
             return "error/403";
         }
     }
