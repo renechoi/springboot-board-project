@@ -6,6 +6,8 @@ import kosta.springjspblog.domain.dto.Category;
 import kosta.springjspblog.domain.dto.User;
 import kosta.springjspblog.domain.service.ArticleService;
 import kosta.springjspblog.domain.service.BlogService;
+import kosta.springjspblog.web.error.BadRequestException;
+import kosta.springjspblog.web.error.ForbiddenException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import kosta.springjspblog.domain.service.CategoryService;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,9 +49,6 @@ public class BlogController {
             Blog createdBlog = blogService.create(blog);
             createdBlog.setUserId(user.getId());
             session.setAttribute("blog", createdBlog);
-
-            System.out.println("blog = " + createdBlog);
-            System.out.println("user = " + user);
 
             return "blog/blog-main";
         }
@@ -92,24 +92,21 @@ public class BlogController {
     /*개인블로그 기본설정페이지 출력*/
     @GetMapping(value = "/{id}/admin/basic")
     public String blogAdminBasic(@PathVariable("id") String id, HttpSession session, Model model) {
-
         User authUser = (User) session.getAttribute("authUser");
 
         if (isLoginAndProperUser(id, authUser)) {
-            //블로그 기본정보 가져오기
             Blog blog = blogService.getBlog(id);
             model.addAttribute("blog", blog);
             return "blog/admin/blog-admin-basic";
 
         } else { //타인의 블로그 설정페이지로 진입 시도한 경우
-            return "error/403";
+            throw new ForbiddenException();
         }
     }
 
     /*개인블로그 기본설정페이지 수정*/
     @PostMapping(value = "/{id}/admin/basicModify")
     public String blogAdminBasicModify(@ModelAttribute Blog blog, HttpSession session, Model model) throws IOException {
-
         User authUser = (User) session.getAttribute("authUser");
 
         if (isLoginAndProperUser(authUser.getId(), authUser)) {
@@ -118,7 +115,7 @@ public class BlogController {
             blogService.blogAdminBasicModify(blog);
             return "redirect:/" + "blog/" + blog.getUserId() + "/admin/basic";
         }
-        return "error/403";
+        throw new BadRequestException();
     }
 
     /*개인블로그 카테고리설정 페이지 출력*/
@@ -137,12 +134,8 @@ public class BlogController {
             return "/blog/admin/blog-admin-category";
 
         } else {
-            return "error/403";
+            throw new BadRequestException();
         }
-    }
-
-    private static boolean isLoginAndProperUser(String id, User authUser) {
-        return authUser != null && id.equals(authUser.getId());
     }
 
     /*개인블로그 글쓰기설정페이지 출력*/
@@ -159,8 +152,8 @@ public class BlogController {
             model.addAttribute("categories", categories);
             return "blog/admin/blog-admin-write";
 
-        } else { //로그인 안했으면 로그인 페이지로
-            return "error/403";
+        } else {
+            throw new BadRequestException();
         }
 
     }
@@ -169,22 +162,17 @@ public class BlogController {
     @PostMapping(value = "/{id}/admin/write")
     public String blogAdminWritePost(@PathVariable("id") String id, @ModelAttribute Article article, HttpSession session, Model model) {
         User authUser = (User) session.getAttribute("authUser");
-
-        log.info("article = {} ", article);
-
         if (isLoginAndProperUser(id, authUser)) {
             articleService.Write(article);
         } else { //로그인 안했으면 로그인 페이지로
-            return "error/403";
+            throw new BadRequestException();
         }
 
         return "redirect:/" + "blog/" + id;
     }
 
-
-
-
-
-
+    private static boolean isLoginAndProperUser(String id, User authUser) {
+        return authUser != null && id.equals(authUser.getId());
+    }
 
 }
