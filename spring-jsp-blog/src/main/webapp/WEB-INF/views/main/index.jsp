@@ -14,14 +14,14 @@
 		<!-- 해더 -->
 		<c:import url="/WEB-INF/views/includes/main-header.jsp"></c:import>
 		
-		<form class="search-form">
+		<form class="search-form" id="search-input" method="post" action="${pageContext.request.contextPath}/blog/search">
 			<fieldset>
 				<input type="text" name="keyword" />
 				<input type="submit" value="검색" />
 			</fieldset>
 			<fieldset>
-				<input type="radio" name="which" value="blog-title"> <label>블로그 제목</label>
-				<input type="radio" name="which" value="blog-user"> <label>블로거</label>
+				<input type="radio" name="condition" value="blog-title"> <label>블로그 제목</label>
+				<input type="radio" name="condition" value="blog-user"> <label>블로거</label>
 			</fieldset>
 		</form>
 	</div>

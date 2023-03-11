@@ -22,10 +22,15 @@
     <select id="findById" parameterType="String" resultType="Blog">
         SELECT userId, blogTitle, logoFile
         FROM kostablog.blog
-        WHERE userId = #{userNo}
+        WHERE userId = #{userId}
     </select>
 
-
+    <select id="findByTitle" parameterType="String" resultType="Blog">
+        SELECT userId, blogTitle, logoFile
+        FROM kostablog.blog
+        WHERE blogTitle = #{keyword}
+    </select>
+<!--         WHERE blogTitle like CONCAT('%',#{keyword},'%')-->
 
     <select id="update" parameterType="String" resultType="Blog">
         update kostablog.blog

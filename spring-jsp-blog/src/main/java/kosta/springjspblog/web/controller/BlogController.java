@@ -1,14 +1,12 @@
 package kosta.springjspblog.web.controller;
 
-import kosta.springjspblog.domain.dto.Article;
-import kosta.springjspblog.domain.dto.Blog;
-import kosta.springjspblog.domain.dto.Category;
-import kosta.springjspblog.domain.dto.User;
+import kosta.springjspblog.domain.dto.*;
 import kosta.springjspblog.domain.service.ArticleService;
 import kosta.springjspblog.domain.service.BlogService;
 import kosta.springjspblog.domain.service.CategoryService;
 import kosta.springjspblog.web.error.BadRequestException;
 import kosta.springjspblog.web.error.ForbiddenException;
+import kosta.springjspblog.web.error.NoContentException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -77,7 +75,6 @@ public class BlogController {
         return "blog/blog-main";
     }
 
-
     @GetMapping(value = "/{id}/admin/basic")
     public String blogAdminBasic(@PathVariable("id") String id, HttpSession session, Model model) {
         User authUser = (User) session.getAttribute("authUser");
@@ -127,7 +124,6 @@ public class BlogController {
             model.addAttribute("blog", blog);
             model.addAttribute("categories", categories);
             return "blog/admin/blog-admin-write";
-
         }
         throw new BadRequestException();
     }
@@ -140,6 +136,16 @@ public class BlogController {
             return String.format("redirect:/blog/%s", id);
         }
         throw new BadRequestException();
+    }
+
+    @PostMapping(value = "/search")
+    public String search(@ModelAttribute SearchCondition searchCondition) {
+        try {
+            String id = blogService.searchByRequest(searchCondition);
+            return String.format("redirect:/blog/%s", id);
+        } catch (RuntimeException e) {
+            throw new NoContentException();
+        }
     }
 
     private static boolean isLoginAndProperUser(String id, User authUser) {

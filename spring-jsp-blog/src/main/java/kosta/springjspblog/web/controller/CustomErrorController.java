@@ -4,11 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.servlet.NoHandlerFoundException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +16,7 @@ public class CustomErrorController implements ErrorController {
     public static final String ERROR_NOT_FOUND = String.valueOf(HttpStatus.NOT_FOUND.value());
     public static final String ERROR_BAD_REQUEST = String.valueOf(HttpStatus.BAD_REQUEST.value());
     public static final String ERROR_FORBIDDEN = String.valueOf(HttpStatus.FORBIDDEN.value());
+    public static final String ERROR_NO_CONTENT = String.valueOf(HttpStatus.NO_CONTENT.value());
 
 //    @ExceptionHandler(NoHandlerFoundException.class)
 //    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
@@ -39,8 +36,9 @@ public class CustomErrorController implements ErrorController {
         if (statusCode.equalsIgnoreCase(ERROR_NOT_FOUND)) {
             return "error/404";
         }
+        if (statusCode.equalsIgnoreCase(ERROR_NO_CONTENT)) {
+            return "error/no-content";
+        }
         return "error/400";
     }
 }
-
-

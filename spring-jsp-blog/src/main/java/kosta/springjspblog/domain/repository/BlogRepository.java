@@ -43,4 +43,8 @@ public class BlogRepository implements JBlogRepository<Blog> {
     public int delete(Blog blog) {
         return 0;
     }
+
+    public Blog findByTitle(String title) {
+        return blogMapper.findByTitle(title);
+    }
 }

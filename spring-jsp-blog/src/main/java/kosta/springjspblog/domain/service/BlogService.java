@@ -1,6 +1,7 @@
 package kosta.springjspblog.domain.service;
 
 import kosta.springjspblog.domain.dto.Blog;
+import kosta.springjspblog.domain.dto.SearchCondition;
 import kosta.springjspblog.domain.dto.UploadFile;
 import kosta.springjspblog.domain.dto.User;
 import kosta.springjspblog.domain.repository.BlogRepository;
@@ -38,6 +39,12 @@ public class BlogService {
         return blogRepository.update(blog);
     }
 
+    public String searchByRequest(SearchCondition searchCondition) {
+        String condition = searchCondition.getCondition();
+        if (condition.equals("blog-user")) {
+          return blogRepository.findById(searchCondition.getKeyword()).getUserId();
+        }
+        return blogRepository.findByTitle(searchCondition.getKeyword()).getUserId();
+    }
 }
-
 
