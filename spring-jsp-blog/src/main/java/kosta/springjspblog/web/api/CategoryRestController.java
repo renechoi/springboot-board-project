@@ -6,21 +6,19 @@ import kosta.springjspblog.domain.dto.User;
 import kosta.springjspblog.domain.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
-@Controller
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("/api/category")
-public class CategoryController {
+public class CategoryRestController {
 
     private final CategoryService categoryService;
 
-    /*회원별(블로그별) 카테고리 리스트 가져오기*/
     @ResponseBody
     @PostMapping(value = "/list")
     public List<Category> cateList(HttpSession session) {
@@ -28,7 +26,6 @@ public class CategoryController {
         return categoryService.getCategories(authUser.getId());
     }
 
-    /*카테고리 추가*/
     @ResponseBody
     @PostMapping(value = "/add")
     public Category cateAdd(@ModelAttribute Category category, HttpSession session) {

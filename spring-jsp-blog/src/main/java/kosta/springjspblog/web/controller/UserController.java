@@ -27,18 +27,15 @@ public class UserController {
 
 	@PostMapping(value = "/join")
 	public String join(@ModelAttribute User user, HttpSession session) {
-		// userName, id, password
 		userService.join(user, session);
 		return "user/joinSuccess";
 	}
 
-	/*로그인폼 출력*/
 	@GetMapping(value = "/login")
 	public String loginForm() {
 		return "user/loginForm";
 	}
 
-	/*로그인*/
 	@PostMapping(value = "/login")
 	public String login(@ModelAttribute User user, HttpSession session) {
 		User authUser = userService.login(user);
@@ -52,18 +49,11 @@ public class UserController {
 		return "redirect:/user/login?result=fail";
 	}
 
-	/*로그아웃*/
 	@GetMapping(value = "/logout")
 	public String logout(HttpSession session) {
 		session.removeAttribute("authUser");
 		session.invalidate();
 		return "redirect:/";
-	}
-
-	@ResponseBody
-	@PostMapping(value = "/idCheck")
-	public boolean cateList(String id) {
-		return userService.idCheck(id);
 	}
 
 	@GetMapping(value = "/{id}/unregister")
@@ -74,9 +64,7 @@ public class UserController {
 	@PostMapping(value = "/{id}/unregister")
 	public String unRegister(@ModelAttribute User user, HttpSession session) {
 		userService.unRegister(user, session);
-
 		return "redirect:/";
 	}
-
 }
 

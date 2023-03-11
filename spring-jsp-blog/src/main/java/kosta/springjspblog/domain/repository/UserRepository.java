@@ -42,6 +42,4 @@ public class UserRepository implements JBlogRepository<User> {
     public int delete(User user) {
         return userMapper.delete(user);
     }
-
-
 }

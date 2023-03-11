@@ -21,14 +21,14 @@ public class CustomErrorController implements ErrorController {
     public static final String ERROR_BAD_REQUEST = String.valueOf(HttpStatus.BAD_REQUEST.value());
     public static final String ERROR_FORBIDDEN = String.valueOf(HttpStatus.FORBIDDEN.value());
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public String handle404(NoHandlerFoundException ex, Model model) {
-        System.out.println("CustomErrorController.handle404");
-        log.error("400 요청 발생", ex.getRequestURL());
-        model.addAttribute("msg", "그런 페이지는 없어요.");
-        return "error/403";
-    }
+//    @ExceptionHandler(NoHandlerFoundException.class)
+//    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+//    public String handle404(NoHandlerFoundException ex, Model model) {
+//        System.out.println("CustomErrorController.handle404");
+//        log.error("400 요청 발생", ex.getRequestURL());
+//        model.addAttribute("msg", "그런 페이지는 없어요.");
+//        return "error/403";
+//    }
 
     @RequestMapping(value = "/error")
     public String error(HttpServletRequest request) {

@@ -10,15 +10,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-
-
 @Component
 public class FileStore {
     @Value("${file.directory}")
-    private String fileDir;
+    private String fileDirectory;
 
     public String getFullPath(String filename) {
-        return fileDir + filename;
+        return fileDirectory + filename;
     }
 
     public UploadFile storeFile(MultipartFile multipartFile) throws IOException {

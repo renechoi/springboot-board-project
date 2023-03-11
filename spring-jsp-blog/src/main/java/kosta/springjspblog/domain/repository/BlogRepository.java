@@ -39,7 +39,6 @@ public class BlogRepository implements JBlogRepository<Blog> {
        return blogMapper.update(blog);
     }
 
-
     @Override
     public int delete(Blog blog) {
         return 0;

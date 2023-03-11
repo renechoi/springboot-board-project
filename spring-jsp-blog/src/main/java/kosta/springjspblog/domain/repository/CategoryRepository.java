@@ -25,7 +25,6 @@ public class CategoryRepository implements JBlogRepository<Category> {
     }
 
     public List<Category> findAll(String userId) {
-
         return categoryMapper.findAll(userId);
     }
 

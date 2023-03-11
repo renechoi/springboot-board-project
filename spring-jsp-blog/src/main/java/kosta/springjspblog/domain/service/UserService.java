@@ -1,9 +1,7 @@
 package kosta.springjspblog.domain.service;
 
-import kosta.springjspblog.domain.repository.BlogRepository;
-import kosta.springjspblog.domain.repository.CategoryRepository;
-import kosta.springjspblog.domain.repository.UserRepository;
 import kosta.springjspblog.domain.dto.User;
+import kosta.springjspblog.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,11 +16,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    private final BlogRepository blogRepository;
-
-    private final CategoryRepository categoryRepository;
-
-    /*회원가입: 회원정보, 블로그기본정보, 카테고리기본정보가 저장되어야함*/
     @Transactional
     public void join(User user, HttpSession session) {
         User savedUser = userRepository.save(user);
