@@ -17,11 +17,9 @@ public class UserService {
     private final UserRepository userRepository;
 
     @Transactional
-    public void join(User user, HttpSession session) {
+    public void join(User user) {
         User savedUser = userRepository.save(user);
         int userNo = savedUser.getUserNo();
-
-        log.info("savedUser userNo ={}", userNo);
     }
 
     public boolean idCheck(String id) {

@@ -3,6 +3,7 @@ package kosta.springjspblog.domain.service;
 import java.util.List;
 
 import kosta.springjspblog.domain.dto.Category;
+import kosta.springjspblog.domain.dto.User;
 import kosta.springjspblog.domain.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,8 @@ public class CategoryService {
         return categoryRepository.findAll(userId);
     }
 
-    public Category add(Category category) {
+    public Category add(Category category, User authUser) {
+        category.setUserId(authUser.getId());
         return categoryRepository.save(category);
     }
 

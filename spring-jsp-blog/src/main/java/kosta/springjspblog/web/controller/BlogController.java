@@ -44,11 +44,8 @@ public class BlogController {
             return "redirect:/result=fail";
         }
 
-        blog.setUserId(user.getId());
-        Blog createdBlog = blogService.create(blog);
-        createdBlog.setUserId(user.getId());
+        Blog createdBlog = blogService.create(blog, user);
         session.setAttribute("blog", createdBlog);
-
         return "blog/blog-main";
     }
 
@@ -56,15 +53,13 @@ public class BlogController {
     public String myBlog(@PathVariable("id") String id,
                          @RequestParam(value = "categoryNo", defaultValue = "0") int categoryNo,
                          @RequestParam(value = "articleNo", defaultValue = "0") int articleNo,
-                         HttpSession session, Model model) {
+                         Model model) {
 
         Blog blog = blogService.getBlog(id);
-        String userId = blog.getUserId();
-        List<Category> categories = categoryService.getCategories(userId);
-        List<Article> articles = articleService.getArticles(userId, categoryNo);
-        int articlesSize = Optional.ofNullable(articles).map(List::size).orElse(0);
+        List<Category> categories = categoryService.getCategories(blog.getUserId());
+        List<Article> articles = articleService.getArticles(blog.getUserId(), categoryNo);
 
-        if (articleNo == 0 && articlesSize != 0) {
+        if (articleNo == 0 && getArticlesSize(articles) != 0) {
             articleNo = articleAtFirst(articles).getArticleNo();
         }
 
@@ -82,6 +77,7 @@ public class BlogController {
         return "blog/blog-main";
     }
 
+
     @GetMapping(value = "/{id}/admin/basic")
     public String blogAdminBasic(@PathVariable("id") String id, HttpSession session, Model model) {
         User authUser = (User) session.getAttribute("authUser");
@@ -90,7 +86,6 @@ public class BlogController {
             Blog blog = blogService.getBlog(id);
             model.addAttribute("blog", blog);
             return "blog/admin/blog-admin-basic";
-
         }
         throw new ForbiddenException();
     }
@@ -100,8 +95,7 @@ public class BlogController {
         User authUser = (User) session.getAttribute("authUser");
 
         if (isLoginAndProperUser(authUser.getId(), authUser)) {
-            blog.setUserId(authUser.getId());
-            blogService.blogAdminBasicModify(blog);
+            blogService.blogAdminBasicModify(blog, authUser);
             return String.format("redirect:/blog/%s/admin/basic", blog.getUserId());
         }
         throw new BadRequestException();
@@ -118,7 +112,6 @@ public class BlogController {
             model.addAttribute("blog", blog);
             model.addAttribute("categories", categories);
             return "/blog/admin/blog-admin-category";
-
         }
         throw new BadRequestException();
     }
@@ -156,4 +149,11 @@ public class BlogController {
     private static Article articleAtFirst(List<Article> articles) {
         return articles.get(0);
     }
+
+    private static int getArticlesSize(List<Article> articles) {
+        return Optional.ofNullable(articles)
+                .map(List::size)
+                .orElse(0);
+    }
+
 }

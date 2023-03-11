@@ -30,8 +30,7 @@ public class CategoryRestController {
     @PostMapping(value = "/add")
     public Category cateAdd(@ModelAttribute Category category, HttpSession session) {
         User authUser = (User) session.getAttribute("authUser");
-        category.setUserId(authUser.getId());
-        return categoryService.add(category);
+        return categoryService.add(category, authUser);
     }
 
     @ResponseBody
