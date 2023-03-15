@@ -15,6 +15,7 @@ public class User {
     private String password;
     private String joinDate;
 
+
     @Override
     public boolean equals(Object requestedUser) {
         if (this == requestedUser) return true;

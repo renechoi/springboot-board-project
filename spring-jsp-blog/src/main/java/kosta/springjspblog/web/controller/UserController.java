@@ -25,8 +25,9 @@ public class UserController {
 		return "user/joinForm";
 	}
 
+
 	@PostMapping(value = "/join")
-	public String join(@ModelAttribute User user, HttpSession session) {
+	public String join(@ModelAttribute User user) {
 		userService.join(user);
 		return "user/joinSuccess";
 	}
@@ -38,6 +39,7 @@ public class UserController {
 
 	@PostMapping(value = "/login")
 	public String login(@ModelAttribute User user, HttpSession session) {
+
 		User authUser = userService.login(user);
 		Blog blog = blogService.getBlog(user.getId());
 

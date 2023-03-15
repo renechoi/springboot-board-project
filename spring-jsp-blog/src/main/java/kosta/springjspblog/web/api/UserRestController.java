@@ -16,7 +16,6 @@ public class UserRestController {
 
     private final UserService userService;
 
-    @ResponseBody
     @PostMapping(value = "/idCheck")
     public boolean cateList(String id) {
         return userService.idCheck(id);

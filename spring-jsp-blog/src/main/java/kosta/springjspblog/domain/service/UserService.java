@@ -1,5 +1,6 @@
 package kosta.springjspblog.domain.service;
 
+import kosta.springjspblog.config.annotation.Trace;
 import kosta.springjspblog.domain.dto.User;
 import kosta.springjspblog.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ public class UserService {
         int userNo = savedUser.getUserNo();
     }
 
+    @Trace
     public boolean idCheck(String id) {
         boolean isExist;
         User user = userRepository.findById(id);
