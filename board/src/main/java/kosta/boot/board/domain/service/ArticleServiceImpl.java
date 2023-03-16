@@ -3,6 +3,7 @@ package kosta.boot.board.domain.service;
 import kosta.boot.board.config.annotation.Trace;
 import kosta.boot.board.domain.dto.ArticleDto;
 import kosta.boot.board.domain.repository.article.ArticleRepository;
+import kosta.boot.board.domain.repository.article.ArticleSearchCondition;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
@@ -40,7 +41,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Trace
     @Override
     @Transactional(readOnly = true)
-    public List<ArticleDto> findAll(ArticleDto params) {
-        return null;
+    public List<ArticleDto> findAll(ArticleSearchCondition condition) {
+       return articleRepository.findAll(condition);
     }
 }

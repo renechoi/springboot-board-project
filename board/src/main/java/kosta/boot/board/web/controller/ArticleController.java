@@ -5,13 +5,14 @@ import kosta.boot.board.domain.dto.ArticleDto;
 import kosta.boot.board.domain.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 @Controller
 @Slf4j
@@ -24,7 +25,7 @@ public class ArticleController {
     @Trace
     @GetMapping(value = "/register")
     public String register() {
-        return "board/list";
+        return "article-list";
     }
 
     @Trace
@@ -42,6 +43,16 @@ public class ArticleController {
         ArticleDto articleDto = articleService.findByIdx(idx);
         model.addAttribute("article", articleDto);
         return "board/write-form";
+    }
+
+
+
+    @GetMapping(value = "/list")
+    public String getArticles(Model model) {
+        List<ArticleDto> articles = articleService.findAll(null);
+        System.out.println("articles = " + articles);
+        model.addAttribute("articles", articles);
+        return "board/article-list";
     }
 
 }
