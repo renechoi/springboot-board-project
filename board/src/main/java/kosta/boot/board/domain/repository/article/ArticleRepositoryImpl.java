@@ -1,8 +1,8 @@
-package kosta.boot.board.domain.repository;
+package kosta.boot.board.domain.repository.article;
 
 import kosta.boot.board.config.annotation.Trace;
-import kosta.boot.board.domain.dto.Board;
-import kosta.boot.board.domain.repository.mybatis.mapper.BoardMapper;
+import kosta.boot.board.domain.dto.ArticleDto;
+import kosta.boot.board.domain.repository.mybatis.mapper.ArticleMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Repository;
@@ -15,27 +15,27 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ArticleRepositoryImpl implements ArticleRepository{
 
-    private final BoardMapper boardMapper;
+    private final ArticleMapper articleMapper;
 
     @Trace
     @Override
-    public int save(Board board){
-        return boardMapper.save(board);
+    public int save(ArticleDto articleDto){
+        return articleMapper.save(articleDto);
     }
 
     @Trace
     @Override
-    public List<Board> findAll(ArticleSearchCondition condition){
-        return boardMapper.findAll(null);
+    public List<ArticleDto> findAll(ArticleSearchCondition condition){
+        return articleMapper.findAll(null);
     }
 
     @Override
-    public Optional<Board> findByIdx(Long idx) {
-        return null;
+    public Optional<ArticleDto> findByIdx(Long idx) {
+        return articleMapper.findByIdx(idx);
     }
 
     @Override
-    public int update(int no, Board board) {
+    public int update(int no, ArticleDto articleDto) {
         return 0;
     }
 

@@ -1,13 +1,12 @@
 package kosta.boot.board.domain.service;
 
-import kosta.boot.board.domain.dto.Board;
-import org.springframework.stereotype.Service;
+import kosta.boot.board.domain.dto.ArticleDto;
 
 import java.util.List;
 
 public interface ArticleService {
-    public boolean register(Board params);
-    public Board findByIdx(Long idx);
-    public boolean delete(Long idx);
-    public List<Board> findByAll(Board params);
+    boolean register(ArticleDto articleDto);
+    ArticleDto findByIdx(Long idx);
+    boolean delete(Long idx);
+    List<ArticleDto> findAll(ArticleDto articleDto);
 }

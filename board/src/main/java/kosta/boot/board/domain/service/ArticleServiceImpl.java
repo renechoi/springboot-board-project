@@ -1,23 +1,35 @@
 package kosta.boot.board.domain.service;
 
-import kosta.boot.board.domain.dto.Board;
+import kosta.boot.board.config.annotation.Trace;
+import kosta.boot.board.domain.dto.ArticleDto;
+import kosta.boot.board.domain.repository.article.ArticleRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
-public class ArticleServiceImpl implements ArticleService{
+@RequiredArgsConstructor
+public class ArticleServiceImpl implements ArticleService {
+
+    private final ArticleRepository articleRepository;
+
     @Override
-    public boolean register(Board params) {
-        return false;
+    public boolean register(ArticleDto articleDto) {
+        int result = articleRepository.save(articleDto);
+        return result == 1;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public Board findByIdx(Long idx) {
-        return null;
+    public ArticleDto findByIdx(Long idx) {
+        Optional<ArticleDto> findArticle = articleRepository.findByIdx(idx);
+//        return findArticle.orElseThrow(IllegalStateException::new);
+        return findArticle.orElse(new ArticleDto());
     }
 
     @Override
@@ -25,9 +37,10 @@ public class ArticleServiceImpl implements ArticleService{
         return false;
     }
 
+    @Trace
     @Override
     @Transactional(readOnly = true)
-    public List<Board> findByAll(Board params) {
+    public List<ArticleDto> findAll(ArticleDto params) {
         return null;
     }
 }
