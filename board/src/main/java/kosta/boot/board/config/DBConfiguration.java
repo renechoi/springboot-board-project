@@ -43,7 +43,6 @@ public class DBConfiguration {
         SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         factoryBean.setDataSource(dataSource());
         factoryBean.setMapperLocations(applicationContext.getResources("classpath*:/*Mapper.xml"));
-//        factoryBean.setMapperLocations(applicationContext.getResources("classpath:/mappers/**/*Mappers.xml"));
         factoryBean.setTypeAliasesPackage("kosta.*");
         factoryBean.setConfiguration(mybatisConfig());
         return factoryBean.getObject();

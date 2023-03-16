@@ -1,15 +1,19 @@
 package kosta.boot.board.domain.repository;
 
 import kosta.boot.board.domain.dto.Board;
-import kosta.boot.board.domain.repository.mapper.BoardMapper;
+import kosta.boot.board.domain.repository.mybatis.mapper.BoardMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.List;
 
+@Slf4j
+@Transactional
 @SpringBootTest
-class BoardRepositoryTest {
+class ArticleRepositoryImplTest {
 
 
     @Autowired
@@ -36,5 +40,9 @@ class BoardRepositoryTest {
         }
     }
 
-
+    @Test
+    void findByAll() {
+        List<Board> boards = boardMapper.findByAll();
+        System.out.println("boards = " + boards);
+    }
 }

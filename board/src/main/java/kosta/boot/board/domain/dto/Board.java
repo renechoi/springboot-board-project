@@ -12,4 +12,8 @@ public class Board {
     private LocalDateTime regDate;
     private int userNo;
     private String userName;
+
+    private String writer;
+    private long idx;
+    private String deleteYn;
 }
