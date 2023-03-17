@@ -34,13 +34,13 @@ public class ArticleController {
     @PostMapping(value = "/register")
     public String register(final ArticleDto articleDto, Model model) {
         boolean result = articleService.register(articleDto);
-        if (!result) {
-            return UiUtils
-                    .showMessageWithRedirect("게시글 등록에 실패하였습니다.", "/article/list", HttpMethod.GET, null, model)
-                    .forward();
-        }
-        return UiUtils.showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/article/list", HttpMethod.GET, null, model).forward();
-
+        return result ?
+                UiUtils
+                .showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/article/list", HttpMethod.GET, null, model)
+                .forward() :
+                UiUtils
+                .showMessageWithRedirect("게시글 등록에 실패하였습니다.", "/article/list", HttpMethod.GET, null, model)
+                .forward();
     }
 
 
