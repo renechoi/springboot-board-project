@@ -1,10 +1,12 @@
 package kosta.boot.board.web.controller;
 
 import kosta.boot.board.config.annotation.Trace;
+import kosta.boot.board.config.utils.UiUtils;
 import kosta.boot.board.domain.dto.ArticleDto;
 import kosta.boot.board.domain.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,14 +27,20 @@ public class ArticleController {
     @Trace
     @GetMapping(value = "/register")
     public String register() {
-        return "article-list";
+        return "/board/article-list";
     }
 
     @Trace
     @PostMapping(value = "/register")
-    public String register(final ArticleDto articleDto) {
+    public String register(final ArticleDto articleDto, Model model) {
         boolean result = articleService.register(articleDto);
-        return "redirect:/board/list";
+        if (!result) {
+            return UiUtils
+                    .showMessageWithRedirect("게시글 등록에 실패하였습니다.", "/article/list", HttpMethod.GET, null, model)
+                    .forward();
+        }
+        return UiUtils.showMessageWithRedirect("게시글 등록이 완료되었습니다.", "/article/list", HttpMethod.GET, null, model).forward();
+
     }
 
 
@@ -70,6 +78,8 @@ public class ArticleController {
         boolean isDeleted = articleService.delete(idx);
         return "redirect:/article/list";
     }
+
+
 }
 
 
