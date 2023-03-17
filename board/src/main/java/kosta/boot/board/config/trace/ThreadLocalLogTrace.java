@@ -24,21 +24,23 @@ public class ThreadLocalLogTrace implements LogTrace {
     }
 
     @Override
-    public void end(TraceStatus status) {
-        complete(status, null);
+    public void end(Object result, TraceStatus status) {
+        complete(result, status, null);
     }
+
 
     @Override
-    public void exception(TraceStatus status, Exception e) {
-        complete(status, e);
+    public void exception(Object result, TraceStatus status, Exception e) {
+        complete(result, status, e);
     }
 
-    private void complete(TraceStatus status, Exception e) {
+    private void complete(Object result, TraceStatus status, Exception e) {
         Long stopTimeMs = System.currentTimeMillis();
         long resultTimeMs = stopTimeMs - status.getStartTimeMs();
         TraceId traceId = status.getTraceId();
         if (e == null) {
             log.info("[{}] {}{} time={}ms", traceId.getId(), addSpace(COMPLETE_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs);
+            log.info("[{}] Process Result {}", traceId.getId(), result);
         } else {
             log.info("[{}] {}{} time={}ms ex={}", traceId.getId(), addSpace(EX_PREFIX, traceId.getLevel()), status.getMessage(), resultTimeMs, e.toString());
         }
@@ -68,7 +70,7 @@ public class ThreadLocalLogTrace implements LogTrace {
     private static String addSpace(String prefix, int level) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < level; i++) {
-            sb.append( (i == level - 1) ? "|" + prefix : "|   ");
+            sb.append((i == level - 1) ? "|" + prefix : "|   ");
         }
         return sb.toString();
     }

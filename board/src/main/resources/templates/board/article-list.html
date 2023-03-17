@@ -28,7 +28,7 @@
             <tr th:if="${not #lists.isEmpty( articles )}" th:each="row : ${articles}">
                 <td scope="row" th:text="${#strings.equals( row.noticeYn, 'Y' ) ? '공지' : row.idx}"></td>
                 <td class="text-left">
-                    <a th:href="@{/board/view( idx=${row.idx} )}" th:text="${row.title}"></a>
+                    <a th:href="@{/article/view( idx=${row.idx} )}" th:text="${row.title}"></a>
                 </td>
                 <td th:text="${row.writer}"></td>
                 <td th:text="${#temporals.format( row.createdAt, 'yyyy-MM-dd' )}"></td>
@@ -40,7 +40,7 @@
             </tbody>
         </table>
         <div class="btn_wrap text-right">
-            <a th:href="@{/board/write}" class="btn btn-primary waves-effect waves-light">Write</a>
+            <a th:href="@{/article/write}" class="btn btn-primary waves-effect waves-light">Write</a>
         </div>
         <th:block layout:fragment="paging">
             <nav aria-label="Page navigation" class="text-center">

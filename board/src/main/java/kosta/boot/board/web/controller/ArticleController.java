@@ -31,9 +31,7 @@ public class ArticleController {
     @Trace
     @PostMapping(value = "/register")
     public String register(final ArticleDto articleDto) {
-//        log.info("articleDto = {}", articleDto);
         boolean result = articleService.register(articleDto);
-//        log.info("register result = {}", result);
         return "redirect:/board/list";
     }
 
@@ -50,9 +48,22 @@ public class ArticleController {
     @GetMapping(value = "/list")
     public String getArticles(Model model) {
         List<ArticleDto> articles = articleService.findAll(null);
-        System.out.println("articles = " + articles);
         model.addAttribute("articles", articles);
         return "board/article-list";
+    }
+
+
+
+    @GetMapping(value = "/view")
+    public String openBoardDetail(@RequestParam(value = "idx", required = false) Long idx, Model model) {
+
+        ArticleDto articleDto = articleService.findByIdx(idx);
+        if (articleDto == null || "Y".equals(articleDto.getDeletedYn())) {
+        // TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+            return "redirect:/board/list.do";
+        }
+        model.addAttribute("article", articleDto);
+        return "board/article";
     }
 
 }

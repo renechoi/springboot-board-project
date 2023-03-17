@@ -33,16 +33,17 @@ public class TraceAspect {
     @Around("@annotation(kosta.boot.board.config.annotation.Trace)")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         TraceStatus status = null;
+        Object result = null;
 
         try {
             String message = joinPoint.getSignature().toShortString();
             status = logTrace.begin(message);
 
-            Object result = joinPoint.proceed();
-            logTrace.end(status);
+            result = joinPoint.proceed();
+            logTrace.end(result, status);
             return result;
         } catch (Exception e) {
-            logTrace.exception(status, e);
+            logTrace.exception(result, status, e);
             throw e;
         }
 
