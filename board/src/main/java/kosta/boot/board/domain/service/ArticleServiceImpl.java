@@ -35,7 +35,8 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public boolean delete(Long idx) {
-        return false;
+        int result = articleRepository.delete(idx);
+        return result == 1;
     }
 
     @Trace

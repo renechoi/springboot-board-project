@@ -40,21 +40,30 @@
 
 
     <select id="findAll" resultType="ArticleDto">
-        SELECT articleDto.idx,
-               articleDto.title,
-               articleDto.content,
-               articleDto.view_cnt,
-               articleDto.createdAt,
-               articleDto.writer
+        SELECT idx,
+               title,
+               content,
+               writer,
+               view_cnt,
+               notice_yn,
+               secret_yn,
+               delete_yn,
+               createdAt,
+               modifiedAt,
+               deletedAt,
+               user_no,
+               user_name,
+               user_id
         FROM bootboard.ARTICLE articleDto
-        WHERE articleDto.idx
+        WHERE delete_yn = 'N' or delete_yn is null
         ORDER BY idx DESC;
     </select>
 
 
     <select id="findByIdx" parameterType="long" resultType="ArticleDto">
         #         SELECT idx, title, content, writer, view_cnt, createdAt
-        SELECT title,
+        SELECT idx,
+               title,
                content,
                writer,
                view_cnt,
@@ -70,6 +79,16 @@
         FROM bootboard.ARTICLE article
         WHERE idx = #{idx}
     </select>
+
+
+    <update id="delete" parameterType="long">
+        UPDATE bootboard.ARTICLE
+        SET
+            delete_yn = 'Y',
+            deletedAt = now()
+        WHERE
+            idx = #{idx}
+    </update>
 
 
 </mapper>

@@ -44,7 +44,6 @@ public class ArticleController {
     }
 
 
-
     @GetMapping(value = "/list")
     public String getArticles(Model model) {
         List<ArticleDto> articles = articleService.findAll(null);
@@ -53,17 +52,24 @@ public class ArticleController {
     }
 
 
-
     @GetMapping(value = "/view")
     public String openBoardDetail(@RequestParam(value = "idx", required = false) Long idx, Model model) {
 
         ArticleDto articleDto = articleService.findByIdx(idx);
         if (articleDto == null || "Y".equals(articleDto.getDeletedYn())) {
-        // TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
-            return "redirect:/board/list.do";
+            // TODO => 없는 게시글이거나, 이미 삭제된 게시글이라는 메시지를 전달하고, 게시글 리스트로 리다이렉트
+            return "redirect:/article/list";
         }
         model.addAttribute("article", articleDto);
         return "board/article";
     }
 
+
+    @PostMapping(value = "/delete")
+    public String deleteBoard(@RequestParam(value = "idx", required = false) Long idx) {
+        boolean isDeleted = articleService.delete(idx);
+        return "redirect:/article/list";
+    }
 }
+
+

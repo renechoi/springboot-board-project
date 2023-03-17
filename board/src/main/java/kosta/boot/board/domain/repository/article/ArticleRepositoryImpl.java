@@ -29,19 +29,22 @@ public class ArticleRepositoryImpl implements ArticleRepository{
         return articleMapper.findAll(null);
     }
 
+    @Trace
     @Override
     public Optional<ArticleDto> findByIdx(Long idx) {
         return articleMapper.findByIdx(idx);
     }
 
+    @Trace
     @Override
     public int update(int no, ArticleDto articleDto) {
         return 0;
     }
 
+    @Trace
     @Override
     public int delete(Long idx) {
-        return 0;
+        return articleMapper.delete(idx);
     }
 
     @Override
