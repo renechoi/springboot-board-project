@@ -39,7 +39,7 @@
     </insert>
 
 
-    <select id="findAll" resultType="ArticleDto">
+    <select id="findAll" parameterType="Pagination" resultType="ArticleDto">
         SELECT idx,
                title,
                content,
@@ -90,44 +90,12 @@
             idx = #{idx}
     </update>
 
+    <select id="getCount" resultType="int">
+        SELECT	COUNT(*)
+        FROM    bootboard.ARTICLE article
+        WHERE   delete_yn = 'N' or delete_yn is null
+    </select>
+
 
 </mapper>
 
-
-        <!--<update id="updateBoard" parameterType="BoardDTO">-->
-        <!--UPDATE board-->
-        <!--SET-->
-        <!--    update_time = SYSDATE-->
-        <!--  , title = #{title}-->
-        <!--  , content = #{content}-->
-        <!--  , writer = #{writer}-->
-        <!--  , notice_yn = NVL(#{noticeYn, jdbcType=VARCHAR}, 'N')-->
-        <!--  , secret_yn = NVL(#{secretYn, jdbcType=VARCHAR}, 'N')-->
-        <!--WHERE-->
-        <!--    idx = #{idx}-->
-        <!--</update>-->
-
-        <!--<update id="deleteBoard" parameterType="long">-->
-        <!--UPDATE board-->
-        <!--SET-->
-        <!--    delete_yn = 'Y'-->
-        <!--  , delete_time = SYSDATE-->
-        <!--WHERE-->
-        <!--    idx = #{idx}-->
-        <!--</update>-->
-
-        <!--<select id="selectBoardList" parameterType="BoardDTO" resultType="BoardDTO">-->
-        <!--SELECT-->
-        <!--<include refid="boardColumns" />-->
-        <!--FROM board-->
-        <!--WHERE delete_yn = 'N'-->
-        <!--ORDER BY notice_yn ASC, idx DESC, insert_time DESC-->
-        <!--</select>-->
-
-        <!--<select id="selectBoardTotalCount" resultType="int">-->
-        <!--SELECT-->
-        <!--    COUNT(*)-->
-        <!--FROM-->
-        <!--    board-->
-        <!--WHERE delete_yn = 'N'-->
-        <!--</select>-->

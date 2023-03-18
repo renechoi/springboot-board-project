@@ -2,10 +2,10 @@ package kosta.boot.board.domain.service;
 
 import kosta.boot.board.config.annotation.Trace;
 import kosta.boot.board.domain.dto.ArticleDto;
+import kosta.boot.board.domain.pagination.Pagination;
 import kosta.boot.board.domain.repository.article.ArticleRepository;
-import kosta.boot.board.domain.repository.article.ArticleSearchCondition;
+import kosta.boot.board.domain.pagination.ArticleSearchCondition;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,7 +42,14 @@ public class ArticleServiceImpl implements ArticleService {
     @Trace
     @Override
     @Transactional(readOnly = true)
-    public List<ArticleDto> findAll(ArticleSearchCondition condition) {
-       return articleRepository.findAll(condition);
+    public List<ArticleDto> findAll(Pagination pagination) {
+        pagination.setTotalArticleCount(getCount());
+        return articleRepository.findAll(pagination);
+    }
+
+
+    @Trace
+    public int getCount() {
+        return articleRepository.getCount();
     }
 }

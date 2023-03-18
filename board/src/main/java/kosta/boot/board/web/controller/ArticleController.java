@@ -3,16 +3,16 @@ package kosta.boot.board.web.controller;
 import kosta.boot.board.config.annotation.Trace;
 import kosta.boot.board.config.utils.UiUtils;
 import kosta.boot.board.domain.dto.ArticleDto;
+import kosta.boot.board.domain.pagination.ArticleSearchCondition;
+import kosta.boot.board.domain.pagination.ArticleSortCondition;
+import kosta.boot.board.domain.pagination.Pagination;
 import kosta.boot.board.domain.service.ArticleService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -53,9 +53,18 @@ public class ArticleController {
 
 
     @GetMapping(value = "/list")
-    public String getArticles(Model model) {
-        List<ArticleDto> articles = articleService.findAll(null);
+    public String getArticles(
+            @ModelAttribute("params") ArticleDto params,
+            Pagination pagination,
+            ArticleSearchCondition searchCondition,
+            ArticleSortCondition sortCondition,
+            Model model) {
+        pagination.setSearchCondition(searchCondition);
+        pagination.setSortCondition(sortCondition);
+
+        List<ArticleDto> articles = articleService.findAll(pagination);
         model.addAttribute("articles", articles);
+        model.addAttribute("pagination", pagination);
         return "board/article-list";
     }
 
@@ -72,14 +81,11 @@ public class ArticleController {
         return "board/article";
     }
 
-
     @PostMapping(value = "/delete")
     public String deleteBoard(@RequestParam(value = "idx", required = false) Long idx) {
         boolean isDeleted = articleService.delete(idx);
         return "redirect:/article/list";
     }
 
-
 }
-
 

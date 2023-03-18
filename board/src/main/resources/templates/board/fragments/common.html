@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+
+<nav th:fragment="pagination"
+     th:if="${pagination != null}"
+     th:object="${pagination}" th:with="info=${pagination}"
+     aria-label="Page navigation" class="text-center">
+
+<!--    <nav th:fragment="pagination" th:object="${pagination}">-->
+<!--        <div th:text="*{hasPreviousPage}"> test</div>-->
+<!--        <div th:text="${pagination.hasPreviousPage}"> test</div>-->
+<!--        <div th:text="${pagination.currentPageNo}"> test</div>-->
+<!--        <div th:text="${pagination.makeQueryString(1)}"> test</div>-->
+
+
+<!--        pagination = Pagination(searchCondition=null, sortCondition=null, articlesPerPage=10, pageCounts=10, currentPageNo=1, totalArticleCount=63, totalPageCount=7, firstPage=1, lastPage=7, firstArticleIdx=0, lastArticleIdx=10, hasPreviousPage=false, hasNextPage=true)-->
+
+    <ul class="pagination">
+        <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${pagination.createQueryString(1)} ]])">
+            <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+        </li>
+        <li th:if="*{hasPreviousPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${pagination.createQueryString(info.firstPage - 1)} ]])">
+            <a href="javascript:void(0)" aria-label="Previous"><span aria-hidden="true">&lsaquo;</span></a>
+        </li>
+        <li th:each="pageNo : *{#numbers.sequence( firstPage, lastPage )}" th:class="${pageNo == pagination.currentPageNo} ? 'active'">
+            <a href="javascript:void(0)" th:text="${pageNo}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${pagination.createQueryString(pageNo)} ]])"></a>
+        </li>
+        <li th:if="*{hasNextPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${pagination.createQueryString(info.lastPage + 1)} ]])">
+            <a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">&rsaquo;</span></a>
+        </li>
+        <li th:if="*{hasNextPage == true}" th:onclick="movePage([[ ${#request.requestURI} ]], [[ ${pagination.createQueryString(info.totalPageCount)} ]])">
+            <a href="javascript:void(0)" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+        </li>
+    </ul>
+</nav>
+
+</html>

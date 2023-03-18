@@ -1,13 +1,14 @@
 package kosta.boot.board.domain.service;
 
 import kosta.boot.board.domain.dto.ArticleDto;
-import kosta.boot.board.domain.repository.article.ArticleSearchCondition;
+import kosta.boot.board.domain.pagination.ArticleSearchCondition;
+import kosta.boot.board.domain.pagination.Pagination;
 
 import java.util.List;
 
 public interface ArticleService {
     boolean register(ArticleDto articleDto);
-    ArticleDto findByIdx(Long idx);
     boolean delete(Long idx);
-    List<ArticleDto> findAll(ArticleSearchCondition condition);
+    ArticleDto findByIdx(Long idx);
+    List<ArticleDto> findAll(Pagination pagination);
 }

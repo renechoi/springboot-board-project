@@ -26,17 +26,17 @@ public class LoggerInterceptor implements HandlerInterceptor {
 
         if (handler instanceof HandlerMethod){
             HandlerMethod handlerMethod = (HandlerMethod) handler;
-            log.info("HANDLER METHOD {} = ", handlerMethod);
+//            log.info("HANDLER METHOD {} = ", handlerMethod);
         }
 
-        log.info("REQUEST [ {} ] [ {} ] [ {} ]", uuid, requestURI, handler);
+//        log.info("REQUEST [ {} ] [ {} ] [ {} ]", uuid, requestURI, handler);
 
         return true;
     }
 
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
-        log.info("POST HANDLE [ {} ]", modelAndView);
+//        log.info("POST HANDLE [ {} ]", modelAndView);
     }
 
     @Override
@@ -44,10 +44,10 @@ public class LoggerInterceptor implements HandlerInterceptor {
         String requestURI = request.getRequestURI();
         String logId = (String) request.getAttribute(LOG_ID);
 
-        log.info("RESPONSE [ {} ] [ {} ] ", logId, requestURI);
+//        log.info("RESPONSE [ {} ] [ {} ] ", logId, requestURI);
 
         if (ex != null){
-            log.error("afterCompletion error! ", ex);
+//            log.error("afterCompletion error! ", ex);
         }
     }
 }

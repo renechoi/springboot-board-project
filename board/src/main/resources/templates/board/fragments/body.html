@@ -9,33 +9,37 @@
     </div>
     <!-- /.fixed-navbar -->
     <div id="wrapper">
-      <div class="main-content">
-        <div class="row row-inline-block small-spacing">
-          <div class="col-xs-12">
-            <div class="box-content">
-              <div class="clearfix">
-                <h4 class="box-title pull-left"></h4>
-                <!-- /.box-title -->
-               <th:block layout:fragment="search"></th:block>
-             </div>
-             <!-- //.clearfix -->
-             <th:block layout:fragment="content"></th:block>
-             <th:block layout:fragment="paging"></th:block>
-           </div>
-           <!-- /.box-content -->
-         <th:block layout:fragment="add-content"></th:block>
-       </div>
-       <!-- /.col-xs-12 -->
-       
-       </div>
-        <!-- /.row row-inline-block small-spacing -->
-        <footer class="footer">
-          <ul class="list-inline">
-            <li>2023 © rene</li>
-          </ul>
-        </footer>
-      </div>
-      <!-- /.main-content -->
+        <div class="main-content">
+            <div class="row row-inline-block small-spacing">
+                <div class="col-xs-12">
+                    <div class="box-content">
+                        <div class="clearfix">
+                            <h4 class="box-title pull-left"></h4>
+                            <!-- /.box-title -->
+<!--                            <div class="pull-left">-->
+<!--                                <th:block layout:fragment="sort"></th:block>-->
+<!--                            </div>-->
+
+                            <th:block layout:fragment="search"></th:block>
+                        </div>
+                        <!-- //.clearfix -->
+                        <th:block layout:fragment="content"></th:block>
+                        <th:block layout:fragment="paging"></th:block>
+                    </div>
+                    <!-- /.box-content -->
+                    <th:block layout:fragment="add-content"></th:block>
+                </div>
+                <!-- /.col-xs-12 -->
+
+            </div>
+            <!-- /.row row-inline-block small-spacing -->
+            <footer class="footer">
+                <ul class="list-inline">
+                    <li>2022 © Honggildong.</li>
+                </ul>
+            </footer>
+        </div>
+        <!-- /.main-content -->
     </div>
     <!-- /#wrapper -->
     <script th:src="@{/scripts/jquery.min.js}"></script>

@@ -1,17 +1,36 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="board/layout/basic">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="board/layout/basic">
 <th:block layout:fragment="title">
     <title>list page</title>
 </th:block>
 
+
+
+
+<!--<th:block layout:fragment="sort">-->
+<!--    <form action="#" id="sortform-header" class="sortform js__toggle active pull-right">-->
+<!--    <label for="sort-type" hidden>정렬 유형</label>-->
+<!--    <select class="form-control" id="sort-type" name="sort-type">-->
+<!--        <option>최신글</option>-->
+<!--        <option>조회수</option>-->
+<!--    </select>-->
+<!--    </form>-->
+<!--</th:block>-->
+
+
+
 <th:block layout:fragment="search">
     <form action="#" id="searchform-header" class="searchform js__toggle active pull-right">
-        <input type="search" placeholder="Search..." class="input-search">
+        <label for="search-value" hidden>검색어</label>
+        <input type="search" placeholder="검색어를 입력하세요.." class="input-search">
         <button class="mdi mdi-magnify button-search" type="submit">
             <i class="fa fa-search" aria-hidden="true"></i>
         </button>
     </form>
 </th:block>
+
+
 
 <th:block layout:fragment="content">
     <div class="table-responsive clearfix">
@@ -29,7 +48,7 @@
             <tr th:if="${not #lists.isEmpty( articles )}" th:each="row : ${articles}">
                 <td scope="row" th:text="${#strings.equals( row.noticeYn, 'Y' ) ? '공지' : row.idx}"></td>
                 <td class="text-left">
-                    <a th:href="@{/board/view( idx=${row.idx} )}" th:text="${row.title}"></a>
+                    <a th:href="@{/article/view( idx=${row.idx} )}" th:text="${row.title}"></a>
                 </td>
                 <td th:text="${row.writer}"></td>
                 <td th:text="${#temporals.format( row.createdAt, 'yyyy-MM-dd' )}"></td>
@@ -40,23 +59,15 @@
             </tr>
             </tbody>
         </table>
-
         <div class="btn_wrap text-right">
-            <a th:href="@{/board/write}" class="btn btn-primary waves-effect waves-light">Write</a>
+            <a th:href="@{/article/write}" class="btn btn-primary waves-effect waves-light">Write</a>
         </div>
-
-<!--        <div th:object="${pagination}">-->
-<!--            <p th:text="*{totalArticleCount}"></p>-->
-<!--            <p th:text="*{pageCounts}"></p>-->
-
-<!--        </div>-->
-
         <th:block layout:fragment="paging">
             <nav th:replace="board/fragments/common :: pagination"></nav>
         </th:block>
-
     </div>
 </th:block>
+
 
 <th:block layout:fragment="script">
     <script th:inline="javascript">
@@ -69,5 +80,6 @@
         /*]]>*/
     </script>
 </th:block>
+
 
 </html>
