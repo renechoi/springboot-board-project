@@ -52,7 +52,7 @@ public class ArticleRepositoryImpl implements ArticleRepository{
     @Trace
     @Override
     public List<ArticleDto> findAll(Pagination pagination){
-        return articleMapper.findAll(null);
+        return articleMapper.findAll(pagination);
     }
 
 

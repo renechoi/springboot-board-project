@@ -62,7 +62,12 @@ public class ArticleController {
         pagination.setSearchCondition(searchCondition);
         pagination.setSortCondition(sortCondition);
 
+        System.out.println("params = " + params);
+        System.out.println("pagination = " + pagination);
+
         List<ArticleDto> articles = articleService.findAll(pagination);
+        System.out.println("pagination = " + pagination);
+
         model.addAttribute("articles", articles);
         model.addAttribute("pagination", pagination);
         return "board/article-list";

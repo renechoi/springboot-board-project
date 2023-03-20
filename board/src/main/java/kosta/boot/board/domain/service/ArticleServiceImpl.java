@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(rollbackFor = Exception.class)
 @RequiredArgsConstructor
 public class ArticleServiceImpl implements ArticleService {
 
@@ -50,6 +50,9 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Trace
     public int getCount() {
-        return articleRepository.getCount();
+
+        int count = articleRepository.getCount();
+        System.out.println("count = " + count);
+        return count;
     }
 }

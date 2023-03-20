@@ -39,25 +39,37 @@
     </insert>
 
 
+<!--    <select id="findAll" parameterType="Pagination" resultType="ArticleDto">-->
+<!--        SELECT idx,-->
+<!--               title,-->
+<!--               content,-->
+<!--               writer,-->
+<!--               view_cnt,-->
+<!--               notice_yn,-->
+<!--               secret_yn,-->
+<!--               delete_yn,-->
+<!--               createdAt,-->
+<!--               modifiedAt,-->
+<!--               deletedAt,-->
+<!--               user_no,-->
+<!--               user_name,-->
+<!--               user_id-->
+<!--        FROM bootboard.ARTICLE articleDto-->
+<!--        WHERE delete_yn = 'N' or delete_yn is null-->
+<!--        ORDER BY idx DESC;-->
+<!--    </select>-->
+
+
     <select id="findAll" parameterType="Pagination" resultType="ArticleDto">
-        SELECT idx,
-               title,
-               content,
-               writer,
-               view_cnt,
-               notice_yn,
-               secret_yn,
-               delete_yn,
-               createdAt,
-               modifiedAt,
-               deletedAt,
-               user_no,
-               user_name,
-               user_id
-        FROM bootboard.ARTICLE articleDto
+        SELECT article.*
+        FROM (SELECT *
+              FROM bootboard.ARTICLE article
+              ORDER BY idx ASC) article
         WHERE delete_yn = 'N' or delete_yn is null
-        ORDER BY idx DESC;
+        LIMIT   #{articlesPerPage} OFFSET #{firstArticleIdx}
     </select>
+
+
 
 
     <select id="findByIdx" parameterType="long" resultType="ArticleDto">
