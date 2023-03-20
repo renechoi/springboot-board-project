@@ -79,13 +79,13 @@ public class Pagination {
         hasNextPage = currentPageNo != lastPage;
     }
 
-    public String createQueryString(int pageNo) {
+    public String createQueryString(int currentPageNo) {
 
         UriComponents uriComponents =
                 UriComponentsBuilder.newInstance()
-                .queryParam("currentPageNo", pageNo)
-                .queryParam("recordsPerPage", articlesPerPage)
-                .queryParam("pageSize", pageCounts)
+                .queryParam("currentPageNo", currentPageNo)
+                .queryParam("articlesPerPage", articlesPerPage)
+                .queryParam("pageCounts", pageCounts)
                 .queryParam("searchType", searchCondition.getSearchType())
                 .queryParam("searchKeyword", searchCondition.getSearchKeyword())
                 .queryParam("sortKeyword", sortCondition.getSortKeyword())

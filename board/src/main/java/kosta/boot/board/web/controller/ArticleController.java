@@ -62,6 +62,10 @@ public class ArticleController {
         pagination.setSearchCondition(searchCondition);
         pagination.setSortCondition(sortCondition);
 
+        System.out.println("searchCondition = " + searchCondition);
+        System.out.println("sortCondition = " + sortCondition);
+
+
         System.out.println("params = " + params);
         System.out.println("pagination = " + pagination);
 
