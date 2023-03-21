@@ -29,7 +29,7 @@
                 #{viewCnt},
                 COALESCE(#{noticeYn}, 'N'),
                 COALESCE(#{secretYn}, 'N'),
-                COALESCE(#{deletedYn}, 'N'),
+                COALESCE(#{deleteYn}, 'N'),
                 NOW(),
                 #{modifiedAt},
                 #{deletedAt},

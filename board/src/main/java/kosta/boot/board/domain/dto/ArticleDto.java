@@ -12,7 +12,8 @@ public class ArticleDto {
     private int viewCnt;
     private String noticeYn;
     private String secretYn;
-    private String deletedYn;
+    //TODO : CommonDto로 상속 하는 것 고려
+    private String deleteYn;  // TODO 변수명 변경 고려
     private LocalDateTime createdAt;
     private LocalDateTime modifiedAt;
     private LocalDateTime deletedAt;

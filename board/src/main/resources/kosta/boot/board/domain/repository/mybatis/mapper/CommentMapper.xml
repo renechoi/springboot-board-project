@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kosta.boot.board.domain.repository.mybatis.mapper.CommentMapper">
+
+
+
+    <sql id="commentColumns">
+    idx, article_idx, content, writer, delete_yn, created_at, modified_at, deleted_at
+    </sql>
+
+
+    <insert id="save" parameterType="CommentDto" useGeneratedKeys="true" keyProperty="idx">
+        INSERT INTO bootboard.COMMENT(article_idx, content, writer, delete_yn, created_at, modified_at, deleted_at)
+        VALUES (#{articleIdx},
+                #{content},
+                #{writer},
+                COALESCE(#{deleteYn}, 'N'),
+                NOW(),
+                #{modifiedAt},
+                #{deletedAt})
+
+    </insert>
+
+
+    <select id="findAll" parameterType="CommentDTO" resultType="CommentDTO">
+        SELECT
+        <include refid="commentColumns" />
+        FROM
+        bootboard.COMMENT comment
+        WHERE
+        delete_yn = 'N' || delete_yn is null
+        AND
+        article_idx = #{articleIdx}
+        ORDER BY
+        idx DESC,
+        created_at DESC
+    </select>
+
+    <select id="getCount" parameterType="CommentDTO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM
+            bootboard.COMMENT comment
+        WHERE
+            delete_yn = 'N'
+          AND
+            article_idx = #{articleIdx}
+    </select>
+
+</mapper>

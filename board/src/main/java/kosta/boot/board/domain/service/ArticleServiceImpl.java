@@ -26,17 +26,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public ArticleDto findByIdx(Long idx) {
-        Optional<ArticleDto> findArticle = articleRepository.findByIdx(idx);
-//        return findArticle.orElseThrow(IllegalStateException::new);
-        return findArticle.orElse(new ArticleDto());
-    }
-
-    @Override
     public boolean delete(Long idx) {
         int result = articleRepository.delete(idx);
         return result == 1;
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public ArticleDto findByIdx(Long idx) {
+        Optional<ArticleDto> findArticle = articleRepository.findByIdx(idx);
+        return findArticle.orElse(new ArticleDto());
     }
 
     @Trace
@@ -47,12 +46,8 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findAll(pagination);
     }
 
-
     @Trace
     public int getCount() {
-
-        int count = articleRepository.getCount();
-        System.out.println("count = " + count);
-        return count;
+        return articleRepository.getCount();
     }
 }

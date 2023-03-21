@@ -188,3 +188,33 @@ ALTER TABLE ARTICLE MODIFY COLUMN deletedAt DATE COMMENT '삭제일';
 ALTER TABLE ARTICLE MODIFY COLUMN user_no INT COMMENT '회원번호';
 ALTER TABLE ARTICLE MODIFY COLUMN user_name VARCHAR(100) COMMENT '회원이름';
 ALTER TABLE ARTICLE MODIFY COLUMN user_id VARCHAR(100) COMMENT '회원아이디';
+
+
+
+
+
+CREATE TABLE COMMENT (
+                       idx INT NOT NULL AUTO_INCREMENT,
+                       article_idx INT NOT NULL,
+                       content VARCHAR(3000) NOT NULL,
+                       writer VARCHAR(100) NOT NULL,
+                       delete_yn CHAR(1) DEFAULT 'N' NOT NULL,
+                       created_at DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
+                       modified_at DATE ,
+                       deleted_at DATE ,
+                       PRIMARY KEY(idx),
+                       CONSTRAINT FK_reply_board_idx FOREIGN KEY(article_idx)
+                           REFERENCES article(idx) ON DELETE CASCADE
+) COMMENT '댓글';
+
+
+
+ALTER TABLE COMMENT COMMENT '댓글';
+ALTER TABLE COMMENT MODIFY idx INT COMMENT '번호(PK)';
+ALTER TABLE COMMENT MODIFY article_idx INT COMMENT '게시글 번호 (FK)';
+ALTER TABLE COMMENT MODIFY content VARCHAR(3000) COMMENT '내용';
+ALTER TABLE COMMENT MODIFY writer VARCHAR(100) COMMENT '작성자';
+ALTER TABLE COMMENT MODIFY delete_yn CHAR(1) DEFAULT 'N' COMMENT '삭제 여부';
+ALTER TABLE COMMENT MODIFY created_at DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '등록일';
+ALTER TABLE COMMENT MODIFY modified_at DATE COMMENT '수정일';
+ALTER TABLE COMMENT MODIFY deleted_at DATE COMMENT '삭제일';
