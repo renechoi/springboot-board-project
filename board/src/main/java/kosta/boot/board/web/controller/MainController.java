@@ -10,6 +10,6 @@ public class MainController {
     @Trace
     @RequestMapping("/")
     public String main(){
-        return "board/write-form";
+        return "board/article-list";
     }
 }

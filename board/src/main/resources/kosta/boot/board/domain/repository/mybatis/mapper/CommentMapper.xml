@@ -22,7 +22,7 @@
     </insert>
 
 
-    <select id="findAll" parameterType="CommentDTO" resultType="CommentDTO">
+    <select id="findAll" parameterType="CommentDto" resultType="CommentDto">
         SELECT
         <include refid="commentColumns" />
         FROM
@@ -36,7 +36,7 @@
         created_at DESC
     </select>
 
-    <select id="getCount" parameterType="CommentDTO" resultType="int">
+    <select id="getCount" parameterType="CommentDto" resultType="int">
         SELECT
             COUNT(*)
         FROM
@@ -46,5 +46,23 @@
           AND
             article_idx = #{articleIdx}
     </select>
+
+
+    <update id="update" parameterType="CommentDto">
+        UPDATE bootboard.COMMENT comment
+        SET
+            modified_at = now(),
+            content = #{content},
+            writer = #{writer}
+        WHERE
+            idx = #{idx}
+    </update>
+
+    <update id="delete" parameterType="long">
+        UPDATE bootboard.COMMENT comment
+        SET delete_yn  = 'Y',
+            deleted_at = NOW()
+        WHERE idx = #{idx}
+    </update>
 
 </mapper>
